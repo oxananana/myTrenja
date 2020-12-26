@@ -1,9 +1,9 @@
 import { createGlobalStyle } from "styled-components";
-import {Theme} from "./theme"
+import { Theme } from "./theme";
 import reset from "./styled-reset";
 import normalize from "./styled-normalize";
 
-const GlobalStyle = createGlobalStyle<{theme: Theme}>`
+const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
   ${reset}
   ${normalize}
 
@@ -21,8 +21,9 @@ const GlobalStyle = createGlobalStyle<{theme: Theme}>`
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: ${({ theme }) => theme.bg.base};
-    font-size: 16px;
+    background-color: ${({ theme }) => theme.bg.baseGrey};
+    font-size: 14px;
+    line-height: 20px;
     color: ${({ theme }) => theme.text.base};
   }
 
@@ -36,23 +37,12 @@ const GlobalStyle = createGlobalStyle<{theme: Theme}>`
 
   svg {
     display: block;
-    width: 16px;
-    height: 16px;
+    /* width: 16px;
+    height: 16px; */
     fill: currentColor;
     fill-rule: evenodd;
     clip-rule: evenodd;
 
-  }
-
-  #root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-
-    @supports (-webkit-touch-callout: none) {
-    /* The hack for Safari */
-      min-height: -webkit-fill-available;
-    }
   }
 `;
 
