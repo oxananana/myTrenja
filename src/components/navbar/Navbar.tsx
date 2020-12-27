@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../common/Icon";
 
@@ -6,27 +7,27 @@ const Navbar: React.FC = (props) => {
   return (
     <Nav>
       <NavItem>
-        <NavItemLink>
+        <NavItemLink to="/routine">
           <Icon name="calendar" />
         </NavItemLink>
       </NavItem>
       <NavItem>
-        <NavItemLink>
+        <NavItemLink to="/workouts">
           <Icon name="biceps" />
         </NavItemLink>
       </NavItem>
       <NavItem>
-        <NavItemLink>
+        <NavItemLink to="/analytic">
           <Icon name="bar" />
         </NavItemLink>
       </NavItem>
       <NavItem>
-        <NavItemLink>
+        <NavItemLink to="/exersizes">
           <Icon name="dumbbell" />
         </NavItemLink>
       </NavItem>
       <NavItem>
-        <NavItemLink>
+        <NavItemLink to="/account">
           <Icon name="user" />
         </NavItemLink>
       </NavItem>
@@ -52,9 +53,14 @@ const NavItem = styled.li`
   width: 25%;
 `;
 
-const NavItemLink = styled.a`
+const NavItemLink = styled(NavLink)`
   padding: 8px 16px;
   display: block;
+  color: ${({ theme }) => theme.text.grey};
+
+  &.active {
+    color: ${({ theme }) => theme.text.base};
+  }
 
   svg {
     width: 20px;
