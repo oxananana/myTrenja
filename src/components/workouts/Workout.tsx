@@ -1,16 +1,27 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Workout as WorkoutType } from "../../entities/workout";
-import { Exersizes as ExersizesType } from "../../entities/exersize";
+import { Workouts, WorkoutSlugs } from "../../entities/workout";
+import { Exersizes } from "../../entities/exersize";
 import ActionsButton from "../common/ActionsButton";
+import WorkoutExersize from "./WorkoutExersize";
 
 type Props = {
-  workout: WorkoutType;
-  exersizeBase: ExersizesType;
+  workouts: Workouts;
+  workoutSlugs: WorkoutSlugs;
+  exersizeBase: Exersizes;
+};
+
+type Params = {
+  workoutSlug: string;
 };
 
 const Workout: React.FC<Props> = (props) => {
-  const { title, exersizes } = props.workout;
+  const { workouts, workoutSlugs, exersizeBase } = props;
+
+  const workout = workouts[workoutSlugs[useParams<Params>()["workoutSlug"]].id];
+
+  const { title, exersizes } = workout;
 
   return (
     <WorkoutContainer>
@@ -19,11 +30,16 @@ const Workout: React.FC<Props> = (props) => {
         <ActionsButton onClick={() => {}} />
       </Header>
       <ExersizesList>
-        {exersizes.map((item) => {
+        {exersizes.map((exersize) => {
+          const { id, order, sets } = exersize;
+
           return (
-            <ExersizesListItem key={item.id}>
-              {props.exersizeBase[item.id].title}
-            </ExersizesListItem>
+            <WorkoutExersize
+              key={id}
+              title={exersizeBase[id].title}
+              order={order}
+              sets={sets}
+            />
           );
         })}
       </ExersizesList>
@@ -31,39 +47,20 @@ const Workout: React.FC<Props> = (props) => {
   );
 };
 
-const WorkoutContainer = styled.div`
-  box-shadow: ${({ theme }) => theme.shadow.base};
-  border-radius: ${({ theme }) => theme.borderRadius.base};
-  background-color: ${({ theme }) => theme.bg.base};
-  padding: 16px;
-
-  &:hover {
-    cursor: pointer;
-    box-shadow: ${({ theme }) => theme.shadow.baseHover};
-  }
-
-  & + & {
-    margin-top: 16px;
-  }
-`;
+const WorkoutContainer = styled.div``;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
 `;
 
 const Title = styled.div`
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
 `;
 
-const ExersizesList = styled.ul`
-  list-style: none;
-  color: ${({ theme }) => theme.text.grey};
-`;
-
-const ExersizesListItem = styled.li``;
+const ExersizesList = styled.div``;
 
 export default Workout;

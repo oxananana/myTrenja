@@ -6,13 +6,15 @@ import { theme } from "./theme/theme";
 import GlobalStyle from "./theme/GlobalStyle";
 import Routine from "./components/routine/Routine";
 import Workouts from "./components/workouts/Workouts";
+import Workout from "./components/workouts/Workout";
 import Exersizes from "./components/exersizes/Exersizes";
 import Analytic from "./components/analytic/Analytic";
 import Account from "./components/account/Account";
 import Navbar from "./components/navbar/Navbar";
-import { workoutsJSON } from "./data/workoutsJSON";
-import { exersizesJSON } from "./data/exersizesJSON";
 import { routineJSON } from "./data/routineJSON";
+import { exersizesJSON } from "./data/exersizesJSON";
+import { workoutsJSON } from "./data/workoutsJSON";
+import { workoutSlugsJSON } from "./data/workoutSlugsJSON";
 import { exersizeCategoriesJSON } from "./data/exersizeCategoriesJSON";
 
 const App: React.FC = () => {
@@ -29,6 +31,13 @@ const App: React.FC = () => {
             <Routine
               routine={routineJSON}
               workouts={workoutsJSON}
+              exersizeBase={exersizesJSON}
+            />
+          </Route>
+          <Route path="/workouts/:workoutSlug">
+            <Workout
+              workouts={workoutsJSON}
+              workoutSlugs={workoutSlugsJSON}
               exersizeBase={exersizesJSON}
             />
           </Route>

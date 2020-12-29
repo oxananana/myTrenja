@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import Workout from "./Workout";
+import WorkoutCard from "./WorkoutCard";
 import AddButtonHeader from "../common/AddButtonHeader";
 import { Workouts as WorkoutsType } from "../../entities/workout";
 import { Exersizes as ExersizesType } from "../../entities/exersize";
@@ -20,7 +20,7 @@ const Workouts: FC<Props> = (props) => {
       <WorkoutsList>
         {Object.values(workouts).map((workout) => {
           return (
-            <Workout
+            <WorkoutCard
               key={workout.id}
               workout={workout}
               exersizeBase={exersizeBase}
