@@ -7,4 +7,7 @@ export const workoutSlugsJSON: WorkoutSlugs = {
   "triset-complex-2": {
     id: "id2",
   },
+  "triset-complex-3": {
+    id: "id3",
+  },
 };

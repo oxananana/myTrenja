@@ -155,4 +155,81 @@ export const workoutsJSON: Workouts = {
       },
     ],
   },
+  id3: {
+    id: "id3",
+    title: "Трисет-комплекс №3",
+    slug: "triset-complex-3",
+    exersizes: [
+      {
+        id: "exersize6",
+        order: 1,
+        sets: {
+          set1: {
+            weight: 45,
+            reps: 12,
+          },
+          set2: {
+            weight: 45,
+            reps: 12,
+          },
+        },
+      },
+      {
+        id: "exersize7",
+        order: 1,
+        sets: {
+          set1: {
+            weight: 45,
+            reps: 12,
+          },
+          set2: {
+            weight: 45,
+            reps: 12,
+          },
+        },
+      },
+      {
+        id: "exersize2",
+        order: 1,
+        sets: {
+          set1: {
+            weight: 45,
+            reps: 12,
+          },
+          set2: {
+            weight: 45,
+            reps: 12,
+          },
+        },
+      },
+      {
+        id: "exersize3",
+        order: 1,
+        sets: {
+          set1: {
+            weight: 45,
+            reps: 12,
+          },
+          set2: {
+            weight: 45,
+            reps: 12,
+          },
+        },
+      },
+      {
+        id: "exersize5",
+        order: 1,
+        sets: {
+          set1: {
+            weight: 45,
+            reps: 12,
+          },
+          set2: {
+            weight: 45,
+            reps: 12,
+          },
+        },
+      },
+    ],
+  },
 };

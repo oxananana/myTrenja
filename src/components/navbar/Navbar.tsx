@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { Icon } from "../common/Icon";
+import { Icon } from "../Icon";
 
-const Navbar: React.FC = (props) => {
+export const Navbar: React.FC = (props) => {
   return (
     <Nav>
       <NavItem>
@@ -67,5 +67,3 @@ const NavItemLink = styled(NavLink)`
     height: 20px;
   }
 `;
-
-export default Navbar;
