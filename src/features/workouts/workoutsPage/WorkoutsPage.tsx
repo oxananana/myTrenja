@@ -8,7 +8,7 @@ import { RootState } from "../../../app/rootReducer";
 type Props = {};
 
 export const WorkoutsPage: FC<Props> = (props) => {
-  const workouts = useSelector((state: RootState) => state.workouts);
+  const workouts = useSelector((state: RootState) => state.workouts.workouts);
 
   return (
     <Workouts>

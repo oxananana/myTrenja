@@ -13,7 +13,9 @@ type Props = {
 };
 
 export const WorkoutCard: React.FC<Props> = (props) => {
-  const exersizeBase = useSelector((state: RootState) => state.exersizes);
+  const exersizeBase = useSelector(
+    (state: RootState) => state.exersizes.exersizes
+  );
 
   const dispatch = useDispatch();
 

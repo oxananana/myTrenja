@@ -1,22 +1,22 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { AddButtonHeader } from "../../components/AddButtonHeader";
-import {
-  Exersizes as ExersizesType,
-  ExersizeCategories,
-} from "../../entities/exersize";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/rootReducer";
+import { PageTitle } from "../../components/PageTitle";
 
-type Props = {
-  exersizeBase: ExersizesType;
-  exersizeCategories: ExersizeCategories;
-};
+type Props = {};
 
 export const ExersizesPage: FC<Props> = (props) => {
-  const { exersizeCategories, exersizeBase } = props;
+  const exersizes = useSelector(
+    (state: RootState) => state.exersizes.exersizes
+  );
+  const exersizeCategories = useSelector(
+    (state: RootState) => state.exersizes.exersizeCategories
+  );
 
   return (
-    <ExersizesContainer>
-      <AddButtonHeader title="Упражнения" link="/exersizes/new-exersize" />
+    <Exersizes>
+      <PageTitle>Упражнения</PageTitle>
 
       <ExersizeCategoriesNav>
         {Object.values(exersizeCategories).map((category) => {
@@ -31,17 +31,17 @@ export const ExersizesPage: FC<Props> = (props) => {
       </ExersizeCategoriesNav>
 
       <ExersizesList>
-        {Object.values(exersizeBase).map((exersize) => (
+        {Object.values(exersizes).map((exersize) => (
           <ExersizesListItem key={exersize.id}>
-            <a href="">{exersize.title}</a>
+            {exersize.title}
           </ExersizesListItem>
         ))}
       </ExersizesList>
-    </ExersizesContainer>
+    </Exersizes>
   );
 };
 
-const ExersizesContainer = styled.div``;
+const Exersizes = styled.div``;
 
 const ExersizeCategoriesNav = styled.ul`
   display: flex;
@@ -53,10 +53,13 @@ const ExersizeCategoriesNav = styled.ul`
   margin-bottom: 24px;
 `;
 
-const ExersizeCategoriesNavItem = styled.li``;
+const ExersizeCategoriesNavItem = styled.li`
+  flex: 1;
+`;
 
 const ExersizeCategoriesNavLink = styled.a`
-  padding: 8px 16px;
+  padding: 8px;
+  text-align: center;
   display: block;
 `;
 
@@ -64,21 +67,14 @@ const ExersizesList = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.bg.base};
-  padding: 8px 16px;
+  padding: 4px 16px;
 `;
 
 const ExersizesListItem = styled.div`
   font-weight: 500;
+  padding: 12px 0;
 
-  a {
-    display: block;
-    padding: 8px 0;
-  }
   &:not(:last-child) {
     border-bottom: 1px solid #efefef;
-  }
-
-  & + & {
-    margin-top: 8px;
   }
 `;

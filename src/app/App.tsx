@@ -15,8 +15,6 @@ import { Navbar } from "../components/navbar/Navbar";
 import { routineJSON } from "../data/routineJSON";
 import { exersizesJSON } from "../data/exersizesJSON";
 import { workoutsJSON } from "../data/workoutsJSON";
-import { workoutSlugsJSON } from "../data/workoutSlugsJSON";
-import { exersizeCategoriesJSON } from "../data/exersizeCategoriesJSON";
 
 const App: React.FC = () => {
   return (
@@ -39,11 +37,7 @@ const App: React.FC = () => {
             <AddEditWorkoutForm />
           </Route>
           <Route path="/workouts/:workoutSlug">
-            <WorkoutPage
-              workouts={workoutsJSON}
-              workoutSlugs={workoutSlugsJSON}
-              exersizeBase={exersizesJSON}
-            />
+            <WorkoutPage />
           </Route>
           <Route path="/workouts">
             <WorkoutsPage />
@@ -52,10 +46,7 @@ const App: React.FC = () => {
             <AnalyticPage />
           </Route>
           <Route path="/exersizes">
-            <ExersizesPage
-              exersizeBase={exersizesJSON}
-              exersizeCategories={exersizeCategoriesJSON}
-            />
+            <ExersizesPage />
           </Route>
           <Route path="/account">
             <AccountPage />

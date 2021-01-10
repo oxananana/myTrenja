@@ -153,6 +153,20 @@ export const workoutsJSON: Workouts = {
           },
         },
       },
+      {
+        id: "exersize8",
+        order: 1,
+        sets: {
+          set1: {
+            weight: 0,
+            reps: 30,
+          },
+          set2: {
+            weight: 0,
+            reps: 30,
+          },
+        },
+      },
     ],
   },
   id3: {

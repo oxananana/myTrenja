@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { AddButton } from "./AddButton";
+import { PageTitle } from "./PageTitle";
 
 type Props = {
   title: string;
@@ -10,7 +11,7 @@ type Props = {
 export const AddButtonHeader: React.FC<Props> = (props) => {
   return (
     <Header>
-      <Title>{props.title}</Title>
+      <PageTitle withButton={true}>{props.title}</PageTitle>
       <AddButton link={props.link} />
     </Header>
   );
@@ -21,9 +22,4 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: 500;
 `;

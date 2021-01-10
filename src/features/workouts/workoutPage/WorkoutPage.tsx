@@ -1,23 +1,25 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Workouts, WorkoutSlugs } from "../../../entities/workout";
-import { Exersizes } from "../../../entities/exersize";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/rootReducer";
 import { ActionsButton } from "../../../components/ActionsButton";
 import { WorkoutExersize } from "./WorkoutExersize";
 
-type Props = {
-  workouts: Workouts;
-  workoutSlugs: WorkoutSlugs;
-  exersizeBase: Exersizes;
-};
+type Props = {};
 
 type Params = {
   workoutSlug: string;
 };
 
 export const WorkoutPage: React.FC<Props> = (props) => {
-  const { workouts, workoutSlugs, exersizeBase } = props;
+  const workouts = useSelector((state: RootState) => state.workouts.workouts);
+  const workoutSlugs = useSelector(
+    (state: RootState) => state.workouts.workoutSlugs
+  );
+  const exersizeBase = useSelector(
+    (state: RootState) => state.exersizes.exersizes
+  );
 
   const workout = workouts[workoutSlugs[useParams<Params>()["workoutSlug"]].id];
 

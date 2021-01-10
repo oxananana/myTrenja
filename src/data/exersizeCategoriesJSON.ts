@@ -14,4 +14,14 @@ export const exersizeCategoriesJSON = {
     title: "Руки",
     priority: 1,
   },
+  chest: {
+    id: "chest",
+    title: "Грудь",
+    priority: 1,
+  },
+  abs: {
+    id: "abs",
+    title: "Пресс",
+    priority: 1,
+  },
 };

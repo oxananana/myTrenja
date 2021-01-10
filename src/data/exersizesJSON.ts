@@ -36,4 +36,14 @@ export const exersizesJSON: Exersizes = {
     categoryId: "chest",
     title: "Жим в смите наклон, грудь",
   },
+  exersize8: {
+    id: "exersize8",
+    categoryId: "abs",
+    title: "Пресс",
+  },
+  exersize9: {
+    id: "exersize9",
+    categoryId: "abs",
+    title: "Планка",
+  },
 };

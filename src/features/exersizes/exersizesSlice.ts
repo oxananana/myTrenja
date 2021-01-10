@@ -1,22 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { exersizeCategoriesJSON } from "../../data/exersizeCategoriesJSON";
 import { exersizesJSON } from "../../data/exersizesJSON";
 import { Exersize } from "../../entities/exersize";
 
 const exersizesSlice = createSlice({
   name: "exersizes",
-  initialState: exersizesJSON,
+  initialState: {
+    exersizes: exersizesJSON,
+    exersizeCategories: exersizeCategoriesJSON,
+  },
   reducers: {
     addExersize(state, action: PayloadAction<Exersize>) {
       const exersize = action.payload;
-      state[exersize.id] = exersize;
+      state.exersizes[exersize.id] = exersize;
     },
     editExersize(state, action: PayloadAction<Exersize>) {
       const exersize = action.payload;
-      let prevExersize = state[exersize.id];
+      let prevExersize = state.exersizes[exersize.id];
       prevExersize = { ...prevExersize, ...exersize };
     },
     deleteExersize(state, action: PayloadAction<{ id: string }>) {
-      delete state[action.payload.id];
+      delete state.exersizes[action.payload.id];
     },
   },
 });
