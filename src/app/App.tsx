@@ -45,7 +45,10 @@ const App: React.FC = () => {
           <Route path="/analytic">
             <AnalyticPage />
           </Route>
-          <Route path="/exersizes">
+          <Route path="/exersizes" exact>
+            <Redirect to="/exersizes/legs" />
+          </Route>
+          <Route path="/exersizes/:categoryId">
             <ExersizesPage />
           </Route>
           <Route path="/account">
