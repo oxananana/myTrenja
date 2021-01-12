@@ -13,6 +13,7 @@ import { ExersizesPage } from "../features/exersizes/ExersizesPage";
 import { AnalyticPage } from "../features/analytic/AnalyticPage";
 import { AccountPage } from "../features/account/AccountPage";
 import { Navbar } from "../components/navbar/Navbar";
+import { PageNotFound } from "../features/PageNotFound";
 
 const App: React.FC = () => {
   return (
@@ -50,6 +51,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/account">
             <AccountPage />
+          </Route>
+          <Route path="*">
+            <PageNotFound />
           </Route>
         </Switch>
       </PageContainer>
