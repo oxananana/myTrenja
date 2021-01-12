@@ -1,29 +1,28 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { WorkoutDay } from "./WorkoutDay";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/rootReducer";
+import { RoutineDayCard } from "./RoutineDayCard";
 import { AddButtonHeader } from "../../components/AddButtonHeader";
-import { Routine as RoutineType } from "../../entities/routine";
-import { Workouts as WorkoutsType } from "../../entities/workout";
-import { Exersizes as ExersizesType } from "../../entities/exersize";
 
-type Props = {
-  routine: RoutineType;
-  workouts: WorkoutsType;
-  exersizeBase: ExersizesType;
-};
+type Props = {};
 
 export const RoutinePage: FC<Props> = (props) => {
-  const { routine, workouts, exersizeBase } = props;
+  const routine = useSelector((state: RootState) => state.routine);
+  const workouts = useSelector((state: RootState) => state.workouts.workouts);
+  const exersizeBase = useSelector(
+    (state: RootState) => state.exersizes.exersizes
+  );
 
   return (
     <RoutineContainer>
       <AddButtonHeader title="Расписание" link="/routine/new-workout-day" />
 
-      {Object.values(routine).map((workoutDay) => {
+      {Object.values(routine).map((routineDay) => {
         return (
-          <WorkoutDay
-            {...workoutDay}
-            key={workoutDay.id}
+          <RoutineDayCard
+            {...routineDay}
+            key={routineDay.id}
             workouts={workouts}
             exersizeBase={exersizeBase}
           />

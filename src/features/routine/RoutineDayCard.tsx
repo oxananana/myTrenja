@@ -1,24 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { WorkoutDay as WorkoutDayType } from "../../entities/routine";
+import { formattingDate } from "../../utils/formattingDate";
+import { RoutineDay } from "../../entities/routine";
 import { Workouts as WorkoutsType } from "../../entities/workout";
 import { Exersizes as ExersizesType } from "../../entities/exersize";
 import { ActionsButton } from "../../components/ActionsButton";
+import { NavLink } from "react-router-dom";
 
-type Props = WorkoutDayType & {
+type Props = RoutineDay & {
   workouts: WorkoutsType;
   exersizeBase: ExersizesType;
 };
 
-export const WorkoutDay: React.FC<Props> = (props) => {
-  const { date, workoutId } = props;
+export const RoutineDayCard: React.FC<Props> = (props) => {
+  const { id, workoutId } = props;
 
   const { title, exersizes } = props.workouts[workoutId];
 
   return (
-    <WorkoutContainer>
+    <RoutineDayNavLink to={`/routine/${id}`}>
       <Header>
-        <DayDate>{date}</DayDate>
+        <DayDate>{formattingDate(id)}</DayDate>
         <ActionsButton onClick={() => {}} />
       </Header>
       <Title>{title}</Title>
@@ -31,11 +33,12 @@ export const WorkoutDay: React.FC<Props> = (props) => {
           );
         })}
       </ExersizesList>
-    </WorkoutContainer>
+    </RoutineDayNavLink>
   );
 };
 
-const WorkoutContainer = styled.div`
+const RoutineDayNavLink = styled(NavLink)`
+  display: block;
   box-shadow: ${({ theme }) => theme.shadow.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.bg.base};
@@ -58,9 +61,7 @@ const Header = styled.div`
   margin-bottom: 8px;
 `;
 
-const DayDate = styled.div`
-  font-size: 16px;
-`;
+const DayDate = styled.div``;
 
 const Title = styled.div`
   font-size: 16px;
@@ -69,8 +70,13 @@ const Title = styled.div`
 `;
 
 const ExersizesList = styled.ul`
-  list-style: none;
+  padding-left: 16px;
+  list-style-type: inherit;
   color: ${({ theme }) => theme.text.grey};
 `;
 
-const ExersizesListItem = styled.li``;
+const ExersizesListItem = styled.li`
+  & + & {
+    margin-top: 4px;
+  }
+`;

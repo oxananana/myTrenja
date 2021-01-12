@@ -1,5 +1,4 @@
 const primary = "#000";
-const secondary = "#fff";
 
 export const theme = {
   bg: {
@@ -9,6 +8,9 @@ export const theme = {
   text: {
     base: primary,
     grey: "#797979",
+  },
+  border: {
+    inputHover: "#e4e4e4",
   },
   shadow: {
     base: "0px 2px 8px rgba(0, 0, 0, 0.05)",

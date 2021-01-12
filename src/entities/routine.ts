@@ -1,15 +1,17 @@
 import { Set } from "./workout";
 
-type RoutineSet = Set & { complete: boolean };
+export type SetParams = Set & { isComplete: boolean };
 
-type RoutineSets = Record<string, RoutineSet>;
+export type SetsParams = Record<string, SetParams>;
 
-export type WorkoutDay = {
+type ExersizeParams = { isComplete: boolean; sets: SetsParams };
+
+export type ExersizesParams = Record<string, ExersizeParams>;
+
+export type RoutineDay = {
   id: string;
   workoutId: string;
-  date: string;
-  complete: boolean;
-  exersizesSets: Record<string, RoutineSets>;
+  exersizesParams: ExersizesParams;
 };
 
-export type Routine = Record<string, WorkoutDay>;
+export type Routine = Record<string, RoutineDay>;

@@ -5,6 +5,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../theme/theme";
 import GlobalStyle from "../theme/GlobalStyle";
 import { RoutinePage } from "../features/routine/RoutinePage";
+import { RoutineDayPage } from "../features/routine/RoutineDayPage";
 import { WorkoutsPage } from "../features/workouts/workoutsPage/WorkoutsPage";
 import { WorkoutPage } from "../features/workouts/workoutPage/WorkoutPage";
 import { AddEditWorkoutForm } from "../features/workouts/AddEditWorkoutForm/AddEditWorkoutForm";
@@ -12,9 +13,6 @@ import { ExersizesPage } from "../features/exersizes/ExersizesPage";
 import { AnalyticPage } from "../features/analytic/AnalyticPage";
 import { AccountPage } from "../features/account/AccountPage";
 import { Navbar } from "../components/navbar/Navbar";
-import { routineJSON } from "../data/routineJSON";
-import { exersizesJSON } from "../data/exersizesJSON";
-import { workoutsJSON } from "../data/workoutsJSON";
 
 const App: React.FC = () => {
   return (
@@ -26,12 +24,11 @@ const App: React.FC = () => {
           <Route path="/" exact>
             <Redirect to="/routine" />
           </Route>
+          <Route path="/routine/:id">
+            <RoutineDayPage />
+          </Route>
           <Route path="/routine">
-            <RoutinePage
-              routine={routineJSON}
-              workouts={workoutsJSON}
-              exersizeBase={exersizesJSON}
-            />
+            <RoutinePage />
           </Route>
           <Route path="/workouts/add-workout" exact>
             <AddEditWorkoutForm />

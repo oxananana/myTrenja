@@ -44,6 +44,14 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     clip-rule: evenodd;
 
   }
+
+  input, textarea {
+    border: 1px solid transparent;
+
+    &:hover {
+      border-color: ${({ theme }) => theme.border.inputHover}
+    }
+  }
 `;
 
 export default GlobalStyle;

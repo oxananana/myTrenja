@@ -32,9 +32,8 @@ const Input = styled.input`
   border-radius: 4px;
   background-color: ${({ theme }) => theme.bg.baseGrey};
   width: 56px;
-  line-height: 28px;
+  height: 28px;
   padding: 0 4px;
-  border: 0;
   text-align: center;
   -moz-appearance: textfield;
 
