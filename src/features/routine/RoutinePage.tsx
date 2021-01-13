@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { RootState } from "../../app/rootReducer";
 import { RoutineDayCard } from "./RoutineDayCard";
 import { AddButtonHeader } from "../../components/AddButtonHeader";
@@ -13,6 +14,8 @@ export const RoutinePage: FC<Props> = (props) => {
   const exersizeBase = useSelector(
     (state: RootState) => state.exersizes.exersizes
   );
+
+  useDocumentTitle("Расписание");
 
   return (
     <RoutineContainer>

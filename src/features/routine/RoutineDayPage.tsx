@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { ActionsButton } from "../../components/ActionsButton";
 import { WorkoutExersizes } from "../workouts/workoutPage/WorkoutExersizes";
 import { formattingDate } from "../../utils/formattingDate";
@@ -22,11 +23,14 @@ export const RoutineDayPage: React.FC<Props> = () => {
   const workoutId = routine[id].workoutId;
   const exersizesParams = routine[id].exersizesParams;
   const { title, exersizes } = workouts[workoutId];
+  const day = formattingDate(id);
+
+  useDocumentTitle(`Расписание — ${day}`);
 
   return (
     <RoutineDay>
       <Header>
-        <Date>{formattingDate(id)}</Date>
+        <Date>{day}</Date>
         <ActionsButton onClick={() => {}} />
       </Header>
       <Title>{title}</Title>

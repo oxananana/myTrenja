@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 import { ActionsButton } from "../../../components/ActionsButton";
 import { WorkoutExersizes } from "./WorkoutExersizes";
 import {
@@ -20,6 +21,8 @@ export const WorkoutPage: React.FC<Props> = (props) => {
   const { workoutSlug } = useParams<{ workoutSlug: string }>();
   const workout = workouts[workoutSlugs[workoutSlug].id];
   const { title, exersizes } = workout;
+
+  useDocumentTitle(title);
 
   return (
     <WorkoutContainer>

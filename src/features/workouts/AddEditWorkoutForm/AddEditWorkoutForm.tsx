@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 import { addWorkout } from "../workoutsSlice";
 
 type Props = {};
 
 export const AddEditWorkoutForm: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
+  useDocumentTitle("Редактирование тренировки");
 
   const handleAddWorkout = () => {
     dispatch(
