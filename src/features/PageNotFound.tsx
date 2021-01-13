@@ -1,5 +1,7 @@
 import React from "react";
 
-export const PageNotFound = () => {
+type Props = {};
+
+export const PageNotFound: React.FC<Props> = () => {
   return <div>Страница не найдена.</div>;
 };

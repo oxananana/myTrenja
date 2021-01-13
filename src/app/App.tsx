@@ -14,6 +14,8 @@ import { AnalyticPage } from "../features/analytic/AnalyticPage";
 import { AccountPage } from "../features/account/AccountPage";
 import { Navbar } from "../components/navbar/Navbar";
 import { PageNotFound } from "../features/PageNotFound";
+import { CheckSlugContainer } from "../components/CheckSlugContainer";
+import { getWorkoutSlugs } from "../selectors/selectors";
 
 const App: React.FC = () => {
   return (
@@ -35,7 +37,12 @@ const App: React.FC = () => {
             <AddEditWorkoutForm />
           </Route>
           <Route path="/workouts/:workoutSlug">
-            <WorkoutPage />
+            <CheckSlugContainer
+              stateSelector={getWorkoutSlugs}
+              slug="workoutSlug"
+            >
+              <WorkoutPage />
+            </CheckSlugContainer>
           </Route>
           <Route path="/workouts">
             <WorkoutsPage />
