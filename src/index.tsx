@@ -4,7 +4,11 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./app/store";
 import App from "./app/App";
+import firebase from "firebase/app";
+import { firebaseConfig } from "./firebaseConfig";
 import reportWebVitals from "./reportWebVitals";
+
+firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
