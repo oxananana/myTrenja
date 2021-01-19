@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
 
   }
 
-  input, textarea {
+  input, textarea, select {
     border: 1px solid transparent;
 
     &:hover {

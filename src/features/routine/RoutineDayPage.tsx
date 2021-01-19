@@ -1,31 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { ActionsButton } from "../../components/ActionsButton";
+import { EditRoutineDay } from "./addEditRoutineDay/EditRoutineDay";
 import { WorkoutExersizes } from "../workouts/workoutPage/WorkoutExersizes";
-import { formattingDate } from "../../utils/formattingDate";
-import {
-  getRoutine,
-  getWorkouts,
-  getExersizes,
-} from "../../selectors/selectors";
+import { formatToReadableDate } from "../../utils/formatToReadableDate";
+import { getRoutine, getWorkouts } from "../../selectors/selectors";
 
 type Props = {};
 
 export const RoutineDayPage: React.FC<Props> = () => {
-  const { id } = useParams<{ id: string }>();
+  const { dayId } = useParams<{ dayId: string }>();
   const routine = useSelector(getRoutine);
   const workouts = useSelector(getWorkouts);
-  const exersizeBase = useSelector(getExersizes);
 
-  const workoutId = routine[id].workoutId;
-  const exersizesParams = routine[id].exersizesParams;
+  const workoutId = routine[dayId].workoutId;
+  const exersizesParams = routine[dayId].exersizesParams;
   const { title, exersizes } = workouts[workoutId];
-  const day = formattingDate(id);
-
+  const day = formatToReadableDate(dayId);
   useDocumentTitle(`Расписание — ${day}`);
+
+  const [editMode, setEditMode] = useState<boolean>(false);
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
+  if (editMode) {
+    return (
+      <EditRoutineDay
+        dayId={dayId}
+        toggleEditMode={toggleEditMode}
+        workoutId={workoutId}
+        exersizesParams={exersizesParams}
+      />
+    );
+  }
 
   return (
     <RoutineDay>
@@ -34,8 +46,8 @@ export const RoutineDayPage: React.FC<Props> = () => {
         <ActionsButton onClick={() => {}} />
       </Header>
       <Title>{title}</Title>
+      <span onClick={toggleEditMode}>Редактировать</span>
       <WorkoutExersizes
-        exersizeBase={exersizeBase}
         exersizes={exersizes}
         exersizesParams={exersizesParams}
       />
@@ -51,7 +63,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
 
 const Title = styled.div`

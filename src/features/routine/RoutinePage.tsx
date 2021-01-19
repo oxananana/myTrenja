@@ -19,7 +19,7 @@ export const RoutinePage: FC<Props> = (props) => {
 
   return (
     <RoutineContainer>
-      <AddButtonHeader title="Расписание" link="/routine/new-workout-day" />
+      <AddButtonHeader title="Расписание" link="/routine/add-routine-day" />
 
       {Object.values(routine).map((routineDay) => {
         return (

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { formattingDate } from "../../utils/formattingDate";
+import { formatToReadableDate } from "../../utils/formatToReadableDate";
 import { RoutineDay } from "../../entities/routine";
 import { Workouts as WorkoutsType } from "../../entities/workout";
 import { Exersizes as ExersizesType } from "../../entities/exersize";
@@ -20,7 +20,7 @@ export const RoutineDayCard: React.FC<Props> = (props) => {
   return (
     <RoutineDayNavLink to={`/routine/${id}`}>
       <Header>
-        <DayDate>{formattingDate(id)}</DayDate>
+        <DayDate>{formatToReadableDate(id)}</DayDate>
         <ActionsButton onClick={() => {}} />
       </Header>
       <Title>{title}</Title>

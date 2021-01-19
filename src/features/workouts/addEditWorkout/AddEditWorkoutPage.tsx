@@ -6,7 +6,7 @@ import { addWorkout } from "../workoutsSlice";
 
 type Props = {};
 
-export const AddEditWorkoutForm: React.FC<Props> = (props) => {
+export const AddEditWorkoutPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   useDocumentTitle("Редактирование тренировки");
 

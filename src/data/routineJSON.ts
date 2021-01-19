@@ -1,8 +1,8 @@
 import { Routine } from "../entities/routine";
 
 export const routineJSON: Routine = {
-  "2021-01-11": {
-    id: "2021-01-11",
+  "2021-01-19": {
+    id: "2021-01-19",
     workoutId: "id1",
     exersizesParams: {
       exersize1: {

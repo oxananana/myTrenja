@@ -7,12 +7,13 @@ import { PageNotFound } from "../features/PageNotFound";
 
 type Props = {
   stateSelector: (state: RootState) => WorkoutSlugs;
-  slug: "workoutSlug";
+  slug: "workoutSlug" | "dayId";
   children: ReactElement;
 };
 
 type Params = {
   workoutSlug: string;
+  dayId: string;
 };
 
 export const CheckSlugContainer: React.FC<Props> = (props) => {

@@ -1,18 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { Exersizes } from "../../../entities/exersize";
 import { WorkoutExersizes as WorkoutExersizesType } from "../../../entities/workout";
 import { ExersizesParams } from "../../../entities/routine";
 import { WorkoutExersize } from "./WorkoutExersize";
+import { useSelector } from "react-redux";
+import { getExersizes } from "../../../selectors/selectors";
 
 type Props = {
   exersizes: WorkoutExersizesType;
-  exersizeBase: Exersizes;
   exersizesParams?: ExersizesParams;
 };
 
 export const WorkoutExersizes: React.FC<Props> = (props) => {
-  const { exersizes, exersizeBase, exersizesParams } = props;
+  const { exersizes, exersizesParams } = props;
+
+  const exersizeBase = useSelector(getExersizes);
 
   return (
     <ExersizesList>

@@ -4,9 +4,11 @@ export const theme = {
   bg: {
     base: "#fff",
     baseGrey: "#F8F8F8",
+    primary: primary,
   },
   text: {
     base: primary,
+    baseInvert: "#fff",
     grey: "#797979",
   },
   border: {

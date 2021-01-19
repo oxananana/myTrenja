@@ -13,13 +13,21 @@ export const InputMini: React.FC<Props> = (props) => {
     setValue(e.target.value);
   };
 
+  const handleBlur = () => {
+    if (value === "") {
+      setValue("0");
+    }
+  };
+
   return (
     <InputContainer>
       <Input
+        min="0"
         type="number"
         value={value}
         onChange={handleChange}
-        pattern="^[0-9]+$"
+        onBlur={handleBlur}
+        pattern="\d+\.?\d+"
       />
       <Unit>{props.unit}</Unit>
     </InputContainer>

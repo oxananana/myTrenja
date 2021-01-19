@@ -8,14 +8,15 @@ import { RoutinePage } from "../features/routine/RoutinePage";
 import { RoutineDayPage } from "../features/routine/RoutineDayPage";
 import { WorkoutsPage } from "../features/workouts/workoutsPage/WorkoutsPage";
 import { WorkoutPage } from "../features/workouts/workoutPage/WorkoutPage";
-import { AddEditWorkoutForm } from "../features/workouts/AddEditWorkoutForm/AddEditWorkoutForm";
+import { AddEditWorkoutPage } from "../features/workouts/addEditWorkout/AddEditWorkoutPage";
 import { ExersizesPage } from "../features/exersizes/ExersizesPage";
 import { AnalyticPage } from "../features/analytic/AnalyticPage";
 import { AccountPage } from "../features/account/AccountPage";
 import { Navbar } from "../components/navbar/Navbar";
-import { PageNotFound } from "../features/PageNotFound";
+import { AddRoutineDayPage } from "../features/routine/addEditRoutineDay/AddRoutineDayPage";
 import { CheckSlugContainer } from "../components/CheckSlugContainer";
-import { getWorkoutSlugs } from "../selectors/selectors";
+import { getRoutine, getWorkoutSlugs } from "../selectors/selectors";
+import { PageNotFound } from "../features/PageNotFound";
 
 const App: React.FC = () => {
   return (
@@ -27,14 +28,19 @@ const App: React.FC = () => {
           <Route path="/" exact>
             <Redirect to="/routine" />
           </Route>
-          <Route path="/routine/:id">
-            <RoutineDayPage />
+          <Route path="/routine/add-routine-day" exact>
+            <AddRoutineDayPage />
+          </Route>
+          <Route path="/routine/:dayId">
+            <CheckSlugContainer stateSelector={getRoutine} slug="dayId">
+              <RoutineDayPage />
+            </CheckSlugContainer>
           </Route>
           <Route path="/routine">
             <RoutinePage />
           </Route>
           <Route path="/workouts/add-workout" exact>
-            <AddEditWorkoutForm />
+            <AddEditWorkoutPage />
           </Route>
           <Route path="/workouts/:workoutSlug">
             <CheckSlugContainer
@@ -71,7 +77,7 @@ const App: React.FC = () => {
 const PageContainer = styled.div`
   margin: 0 auto;
   max-width: 420px;
-  padding: 24px;
+  padding: 24px 24px 56px;
   position: relative;
 `;
 

@@ -1,11 +1,20 @@
 import React from "react";
 
-type Props = {
-  name: keyof Icons;
+export const Icon: React.FC<{ name: keyof Icons }> = ({ name }) => {
+  return icons[name];
 };
 
-export const Icon: React.FC<Props> = ({ name }) => {
-  return icons[name];
+export const iconForBg = (name: keyof StringIcons): string => {
+  return `url('data:image/svg+xml;utf8,${stringIcons[name]}')`;
+};
+
+export const stringIcons: StringIcons = {
+  chevron_bottom:
+    '<svg  fill="gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.2929 7.29285L20.7071 8.70706L12 17.4142L3.29291 8.70706L4.70712 7.29285L12 14.5857L19.2929 7.29285Z" fill-rule="evenodd" clip-rule="evenodd"/></svg>',
+};
+
+type StringIcons = {
+  chevron_bottom: string;
 };
 
 type Icons = {

@@ -56,6 +56,22 @@ export const workoutsJSON: Workouts = {
     slug: "triset-complex-2",
     exersizes: [
       {
+        id: "exersize2",
+        order: 1,
+        sets: {
+          set1: {
+            id: "set1",
+            weight: 45,
+            reps: 12,
+          },
+          set2: {
+            id: "set2",
+            weight: 45,
+            reps: 12,
+          },
+        },
+      },
+      {
         id: "exersize1",
         order: 1,
         sets: {
@@ -67,22 +83,6 @@ export const workoutsJSON: Workouts = {
           set2: {
             id: "set2",
 
-            weight: 45,
-            reps: 12,
-          },
-        },
-      },
-      {
-        id: "exersize2",
-        order: 1,
-        sets: {
-          set1: {
-            id: "set1",
-            weight: 45,
-            reps: 12,
-          },
-          set2: {
-            id: "set2",
             weight: 45,
             reps: 12,
           },
