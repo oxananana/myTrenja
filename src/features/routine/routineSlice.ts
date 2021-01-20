@@ -1,15 +1,46 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { routineJSON } from "../../data/routineJSON";
-import { RoutineDay } from "../../entities/routine";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Routine, RoutineDay } from "../../entities/routine";
+import { routineAPI } from "../../api/routineAPI";
+
+type RoutineState = {
+  data: Routine;
+  isFetching: boolean;
+};
+
+const initialState: RoutineState = {
+  data: {},
+  isFetching: false,
+};
+
+export const fetchRoutine = createAsyncThunk(
+  "routine/fetchRoutine",
+  async () => {
+    const response = await routineAPI.fetchRoutine();
+    return response;
+  }
+);
 
 export const routineSlice = createSlice({
   name: "routine",
-  initialState: routineJSON,
+  initialState,
   reducers: {
     addRoutineDay(state, action: PayloadAction<RoutineDay>) {
       const day = action.payload;
-      state[day.id] = day;
+      state.data[day.id] = day;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(
+        fetchRoutine.fulfilled,
+        (state, action: PayloadAction<Routine>) => {
+          state.data = action.payload;
+          state.isFetching = false;
+        }
+      )
+      .addCase(fetchRoutine.pending, (state) => {
+        state.isFetching = true;
+      });
   },
 });
 

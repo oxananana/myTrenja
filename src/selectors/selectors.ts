@@ -1,7 +1,7 @@
 import { RootState } from "../app/rootReducer";
 
 export const getRoutine = (state: RootState) => {
-  return state.routine;
+  return state.routine.data;
 };
 
 export const getWorkouts = (state: RootState) => {

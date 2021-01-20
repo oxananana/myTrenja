@@ -1,6 +1,8 @@
 export const firebaseConfig = {
   apiKey: process.env.REACT_APP_MYTRENJA_API_KEY,
   authDomain: "mytrenja.firebaseapp.com",
+  databaseURL:
+    "https://mytrenja-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "mytrenja",
   storageBucket: "mytrenja.appspot.com",
   messagingSenderId: "697684949454",

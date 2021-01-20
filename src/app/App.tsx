@@ -4,8 +4,6 @@ import "./App.css";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../theme/theme";
 import GlobalStyle from "../theme/GlobalStyle";
-import firebase from "firebase/app";
-import "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RoutinePage } from "../features/routine/RoutinePage";
 import { RoutineDayPage } from "../features/routine/RoutineDayPage";
@@ -20,9 +18,10 @@ import { AddRoutineDayPage } from "../features/routine/addEditRoutineDay/AddRout
 import { CheckSlugContainer } from "../components/CheckSlugContainer";
 import { getRoutine, getWorkoutSlugs } from "../selectors/selectors";
 import { PageNotFound } from "../features/PageNotFound";
+import { authAPI } from "../api/authAPI";
 
 const App: React.FC = () => {
-  const [user, loading, error] = useAuthState(firebase.auth());
+  const [user, loading, error] = useAuthState(authAPI.getAuth());
 
   return (
     <ThemeProvider theme={theme}>

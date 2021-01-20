@@ -29,6 +29,7 @@ const LoaderIcon = styled.div`
     width: 40px;
     height: 40px;
     margin: 0 auto;
+    fill: ${({ theme }) => theme.iconBtn.base};
   }
 
   path {
