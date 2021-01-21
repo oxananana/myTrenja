@@ -5,11 +5,11 @@ export const getRoutine = (state: RootState) => {
 };
 
 export const getWorkouts = (state: RootState) => {
-  return state.workouts.workouts;
+  return state.workouts.catalog;
 };
 
 export const getWorkoutSlugs = (state: RootState) => {
-  return state.workouts.workoutSlugs;
+  return state.workouts.slugs;
 };
 
 export const getExersizes = (state: RootState) => {

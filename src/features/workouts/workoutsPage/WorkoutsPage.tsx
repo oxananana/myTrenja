@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 import { WorkoutCard } from "./WorkoutCard";
 import { AddButtonHeader } from "../../../components/AddButtonHeader";
-import { RootState } from "../../../app/rootReducer";
+import { getWorkouts } from "../../../selectors/selectors";
 
 type Props = {};
 
 export const WorkoutsPage: FC<Props> = (props) => {
-  const workouts = useSelector((state: RootState) => state.workouts.workouts);
+  const workouts = useSelector(getWorkouts);
   useDocumentTitle("Тренировки");
 
   return (

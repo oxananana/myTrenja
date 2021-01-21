@@ -2,20 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import { formatToReadableDate } from "../../utils/formatToReadableDate";
 import { RoutineDay } from "../../entities/routine";
-import { Workouts as WorkoutsType } from "../../entities/workout";
-import { Exersizes as ExersizesType } from "../../entities/exersize";
 import { ActionsButton } from "../../components/ActionsButton";
 import { NavLink } from "react-router-dom";
+import { Workouts } from "../../entities/workout";
+import { Exersizes } from "../../entities/exersize";
 
 type Props = RoutineDay & {
-  workouts: WorkoutsType;
-  exersizeBase: ExersizesType;
+  workouts: Workouts;
+  exersizeBase: Exersizes;
 };
 
 export const RoutineDayCard: React.FC<Props> = (props) => {
-  const { id, workoutId } = props;
+  const { id, workoutId, workouts, exersizeBase } = props;
 
-  const { title, exersizes } = props.workouts[workoutId];
+  const { title, exersizes } = workouts[workoutId];
 
   return (
     <RoutineDayNavLink to={`/routine/${id}`}>
@@ -28,7 +28,7 @@ export const RoutineDayCard: React.FC<Props> = (props) => {
         {exersizes.map((item) => {
           return (
             <ExersizesListItem key={item.id}>
-              {props.exersizeBase[item.id].title}
+              {exersizeBase[item.id].title}
             </ExersizesListItem>
           );
         })}
