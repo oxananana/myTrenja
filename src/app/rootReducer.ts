@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
+import { authReducer } from "./authSlice";
 import { routineReducer } from "../features/routine/routineSlice";
 import { workoutsReducer } from "../features/workouts/workoutsSlice";
 import { exersizesReducer } from "../features/exersizes/exersizesSlice";
-import { authReducer } from "./authSlice";
 
 export const rootReducer = combineReducers({
   auth: authReducer,

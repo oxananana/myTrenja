@@ -16,11 +16,11 @@ export const fetchRoutine = createAsyncThunk(
   "routine/fetchRoutine",
   async () => {
     const response = await routineAPI.fetchRoutine();
-    return response;
+    return response || {};
   }
 );
 
-export const routineSlice = createSlice({
+const routineSlice = createSlice({
   name: "routine",
   initialState,
   reducers: {
