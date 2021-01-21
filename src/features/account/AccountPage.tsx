@@ -1,36 +1,43 @@
 import React from "react";
 import styled from "styled-components";
-import { authAPI } from "../../api/authAPI";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { Button } from "../../components/Button";
 import { PageTitle } from "../../components/PageTitle";
+import { Loader } from "../../components/Loader";
+import { useDispatch } from "react-redux";
+import { login, logout } from "../../app/authSlice";
+import { User } from "../../entities/user";
+import { Nullable } from "../../commonTypes";
 
 type Props = {
-  user: any;
+  user: Nullable<User>;
+  isFetching: boolean;
 };
 
 export const AccountPage: React.FC<Props> = (props) => {
   useDocumentTitle("Аккаунт");
+  const dispatch = useDispatch();
 
-  const login = () => {
-    authAPI.login("test@gmail.com", "123456");
+  const handleLogin = () => {
+    dispatch(login({ email: "test@gmail.com", password: "123456" }));
   };
 
-  const logout = () => {
-    authAPI.logout();
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
     <AccountContainer>
       <PageTitle>Аккаунт</PageTitle>
+      {props.isFetching && <Loader />}
       <div>Пользователь {props.user?.email}</div>
 
       {props.user ? (
-        <Button onClick={logout} invert>
+        <Button onClick={handleLogout} invert>
           Выйти
         </Button>
       ) : (
-        <Button onClick={login}>Войти</Button>
+        <Button onClick={handleLogin}>Войти</Button>
       )}
     </AccountContainer>
   );

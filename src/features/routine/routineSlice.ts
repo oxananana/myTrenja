@@ -31,16 +31,16 @@ export const routineSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchRoutine.pending, (state) => {
+        state.isFetching = true;
+      })
       .addCase(
         fetchRoutine.fulfilled,
         (state, action: PayloadAction<Routine>) => {
           state.data = action.payload;
           state.isFetching = false;
         }
-      )
-      .addCase(fetchRoutine.pending, (state) => {
-        state.isFetching = true;
-      });
+      );
   },
 });
 

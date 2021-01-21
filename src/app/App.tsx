@@ -4,7 +4,6 @@ import "./App.css";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../theme/theme";
 import GlobalStyle from "../theme/GlobalStyle";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { RoutinePage } from "../features/routine/RoutinePage";
 import { RoutineDayPage } from "../features/routine/RoutineDayPage";
 import { WorkoutsPage } from "../features/workouts/workoutsPage/WorkoutsPage";
@@ -18,10 +17,10 @@ import { AddRoutineDayPage } from "../features/routine/addEditRoutineDay/AddRout
 import { CheckSlugContainer } from "../components/CheckSlugContainer";
 import { getRoutine, getWorkoutSlugs } from "../selectors/selectors";
 import { PageNotFound } from "../features/PageNotFound";
-import { authAPI } from "../api/authAPI";
+import { useAuthState } from "../hooks/useAuthState";
 
 const App: React.FC = () => {
-  const [user, loading, error] = useAuthState(authAPI.getAuth());
+  const auth = useAuthState();
 
   return (
     <ThemeProvider theme={theme}>
@@ -33,7 +32,7 @@ const App: React.FC = () => {
             <Redirect to="/routine" />
           </Route>
           <Route path="/account">
-            <AccountPage user={user} />
+            <AccountPage user={auth.user} isFetching={auth.isFetching} />
           </Route>
           <Route path="/routine/add-routine-day" exact>
             <AddRoutineDayPage />
