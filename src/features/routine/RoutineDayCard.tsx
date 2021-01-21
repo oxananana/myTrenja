@@ -8,14 +8,14 @@ import { Workouts } from "../../entities/workout";
 import { Exersizes } from "../../entities/exersize";
 
 type Props = RoutineDay & {
-  workouts: Workouts;
+  workoutsBase: Workouts;
   exersizeBase: Exersizes;
 };
 
 export const RoutineDayCard: React.FC<Props> = (props) => {
-  const { id, workoutId, workouts, exersizeBase } = props;
+  const { id, workoutId, workoutsBase, exersizeBase } = props;
 
-  const { title, exersizes } = workouts[workoutId];
+  const { title, exersizes } = workoutsBase[workoutId];
 
   return (
     <RoutineDayNavLink to={`/routine/${id}`}>

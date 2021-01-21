@@ -2,20 +2,17 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Workout as WorkoutType } from "../../../entities/workout";
-import { Exersizes as ExersizesType } from "../../../entities/exersize";
 import { ActionsButton } from "../../../components/ActionsButton";
 import { NavLink } from "react-router-dom";
-import { RootState } from "../../../app/rootReducer";
 import { deleteWorkout } from "../workoutsSlice";
+import { getExersizes } from "../../../selectors/selectors";
 
 type Props = {
   workout: WorkoutType;
 };
 
 export const WorkoutCard: React.FC<Props> = (props) => {
-  const exersizeBase = useSelector(
-    (state: RootState) => state.exersizes.exersizes
-  );
+  const exersizeBase = useSelector(getExersizes);
 
   const dispatch = useDispatch();
 

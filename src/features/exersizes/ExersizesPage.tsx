@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { RootState } from "../../app/rootReducer";
-import { PageTitle } from "../../components/PageTitle";
 import { Exersizes as ExersizesType } from "../../entities/exersize";
+import { getExersizes, getExersizeCategories } from "../../selectors/selectors";
+import { PageTitle } from "../../components/PageTitle";
 
 type Props = {};
 
@@ -22,12 +22,9 @@ export const ExersizesPage: FC<Props> = (props) => {
   useDocumentTitle("Упражнения");
 
   const { categoryId } = useParams<{ categoryId: string }>();
-  const exersizeBase = useSelector(
-    (state: RootState) => state.exersizes.exersizes
-  );
-  const exersizeCategories = useSelector(
-    (state: RootState) => state.exersizes.exersizeCategories
-  );
+  const exersizeBase = useSelector(getExersizes);
+  const exersizeCategories = useSelector(getExersizeCategories);
+
   const exersizes = useMemo(() => {
     return getCategoryExersizes(exersizeBase, categoryId);
   }, [exersizeBase, categoryId]);

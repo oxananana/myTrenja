@@ -13,5 +13,9 @@ export const getWorkoutSlugs = (state: RootState) => {
 };
 
 export const getExersizes = (state: RootState) => {
-  return state.exersizes.exersizes;
+  return state.exersizes.catalog;
+};
+
+export const getExersizeCategories = (state: RootState) => {
+  return state.exersizes.categories;
 };

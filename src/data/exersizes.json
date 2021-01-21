@@ -1,0 +1,76 @@
+{
+  "catalog": {
+    "exersize1": {
+      "id": "exersize1",
+      "categoryId": "legs",
+      "title": "Румынская тяга в смите"
+    },
+    "exersize2": {
+      "id": "exersize2",
+      "categoryId": "legs",
+      "title": "Жим в смите, ноги"
+    },
+    "exersize3": {
+      "id": "exersize3",
+      "categoryId": "back",
+      "title": "Тяга блока гориз., спина"
+    },
+    "exersize4": {
+      "id": "exersize4",
+      "categoryId": "legs",
+      "title": "Бицепс бедра"
+    },
+    "exersize5": {
+      "id": "exersize5",
+      "categoryId": "hands",
+      "title": "Тяга блока, бицепс"
+    },
+    "exersize6": {
+      "id": "exersize6",
+      "categoryId": "legs",
+      "title": "Присед со штангой"
+    },
+    "exersize7": {
+      "id": "exersize7",
+      "categoryId": "chest",
+      "title": "Жим в смите наклон, грудь"
+    },
+    "exersize8": {
+      "id": "exersize8",
+      "categoryId": "abs",
+      "title": "Пресс"
+    },
+    "exersize9": {
+      "id": "exersize9",
+      "categoryId": "abs",
+      "title": "Планка"
+    }
+  },
+  "categories": {
+    "legs": {
+      "id": "legs",
+      "title": "Ноги",
+      "priority": 1
+    },
+    "back": {
+      "id": "back",
+      "title": "Спина",
+      "priority": 1
+    },
+    "hands": {
+      "id": "hands",
+      "title": "Руки",
+      "priority": 1
+    },
+    "chest": {
+      "id": "chest",
+      "title": "Грудь",
+      "priority": 1
+    },
+    "abs": {
+      "id": "abs",
+      "title": "Пресс",
+      "priority": 1
+    }
+  }
+}

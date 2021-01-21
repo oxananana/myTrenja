@@ -13,23 +13,29 @@ import { AddButtonHeader } from "../../components/AddButtonHeader";
 import { Loader } from "../../components/Loader";
 import { isObjectEmpty } from "../../utils/isObjectEmpty";
 import { fetchWorkouts } from "../workouts/workoutsSlice";
+import { fetchExersizes } from "../exersizes/exersizesSlice";
 
 type Props = {};
 
 export const RoutinePage: FC<Props> = (props) => {
   const routine = useSelector(getRoutine);
-  const workouts = useSelector(getWorkouts);
+  const workoutsBase = useSelector(getWorkouts);
   const exersizeBase = useSelector(getExersizes);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchRoutine());
     dispatch(fetchWorkouts());
+    dispatch(fetchExersizes());
   }, [dispatch]);
 
   useDocumentTitle("Расписание");
 
-  if (isObjectEmpty(routine) || isObjectEmpty(workouts)) {
+  if (
+    isObjectEmpty(routine) ||
+    isObjectEmpty(workoutsBase) ||
+    isObjectEmpty(exersizeBase)
+  ) {
     return <Loader />;
   }
 
@@ -41,7 +47,7 @@ export const RoutinePage: FC<Props> = (props) => {
           <RoutineDayCard
             {...routineDay}
             key={routineDay.id}
-            workouts={workouts}
+            workoutsBase={workoutsBase}
             exersizeBase={exersizeBase}
           />
         );
