@@ -1,22 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { Button } from "../../components/Button";
 import { PageTitle } from "../../components/PageTitle";
-import { Loader } from "../../components/Loader";
-import { useDispatch } from "react-redux";
 import { login, logout } from "../../app/authSlice";
-import { User } from "../../entities/user";
-import { Nullable } from "../../commonTypes";
+import { RootState } from "../../app/rootReducer";
 
-type Props = {
-  user: Nullable<User>;
-  isFetching: boolean;
-};
+type Props = {};
 
 export const AccountPage: React.FC<Props> = (props) => {
   useDocumentTitle("Аккаунт");
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const handleLogin = () => {
     dispatch(login({ email: "test@gmail.com", password: "123456" }));
@@ -29,10 +25,9 @@ export const AccountPage: React.FC<Props> = (props) => {
   return (
     <AccountContainer>
       <PageTitle>Аккаунт</PageTitle>
-      {props.isFetching && <Loader />}
-      <div>Пользователь {props.user?.email}</div>
+      <div>Пользователь {user?.email}</div>
 
-      {props.user ? (
+      {user ? (
         <Button onClick={handleLogout} invert>
           Выйти
         </Button>

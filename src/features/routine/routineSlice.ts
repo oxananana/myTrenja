@@ -9,7 +9,7 @@ type RoutineState = {
 
 const initialState: RoutineState = {
   data: {},
-  isFetching: false,
+  isFetching: true,
 };
 
 export const fetchRoutine = createAsyncThunk(

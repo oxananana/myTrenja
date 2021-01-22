@@ -11,7 +11,7 @@ type WorkoutsState = {
 const initialState: WorkoutsState = {
   catalog: {},
   slugs: {},
-  isFetching: false,
+  isFetching: true,
 };
 
 export const fetchWorkouts = createAsyncThunk(
