@@ -19,7 +19,10 @@ const ButtonContainer = styled.button`
   width: 20px;
   color: ${({ theme }) => theme.iconBtn.base};
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active {
+    outline: 0;
     cursor: pointer;
     color: ${({ theme }) => theme.iconBtn.baseHover};
   }

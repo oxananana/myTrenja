@@ -61,8 +61,10 @@ const mixin = css<{ invert: boolean; full: boolean; disabled: boolean }>`
   border: 1px solid ${({ theme }) => theme.bg.primary};
   opacity: ${({ disabled }) => disabled && 0.6};
 
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: 0.7;
+    outline: 0;
     cursor: ${({ disabled }) => disabled && "not-allowed"};
   }
 `;

@@ -17,6 +17,7 @@ export const theme = {
   shadow: {
     base: "0px 2px 8px rgba(0, 0, 0, 0.05)",
     baseHover: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+    dropdown: "0 0 5px rgba(0, 0, 0, 0.1)",
   },
   borderRadius: {
     base: "6px",
