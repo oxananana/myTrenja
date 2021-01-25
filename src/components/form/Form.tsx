@@ -37,12 +37,14 @@ type Props = {
   onSubmit: (values: FormValues) => void;
 };
 
+const defaultFieldErrors = {};
+
 export const Form: React.FC<Props> = (props) => {
   const {
     children,
     onSubmit,
     commonError,
-    fieldErrors = {},
+    fieldErrors = defaultFieldErrors,
     initialValues = {},
   } = props;
 
