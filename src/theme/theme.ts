@@ -14,6 +14,7 @@ export const theme = {
   },
   border: {
     inputHover: "#e4e4e4",
+    inputFocus: "#ccc",
     error: "#ffadad",
   },
   shadow: {

@@ -81,6 +81,7 @@ export const LoginPage: React.FC<Props> = (props) => {
         label="E-mail"
         name="email"
         validators={[required]}
+        autoFocus
       />
       <FormField
         fieldType="input"

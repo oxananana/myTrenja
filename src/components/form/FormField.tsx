@@ -46,9 +46,15 @@ const Field = styled.div`
     border-radius: 4px;
     width: 100%;
     color: inherit;
+    border: 1px solid transparent;
 
     &:hover {
-      border-color: ${({ theme }) => theme.text.grayLight};
+      border-color: ${({ theme }) => theme.border.inputHover};
+    }
+
+    &:focus {
+      border-color: ${({ theme }) => theme.border.inputFocus};
+      outline: 0;
     }
 
     &.error {

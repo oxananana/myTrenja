@@ -28,7 +28,7 @@ export const Control: React.FC<Props> = (props) => {
     formContext.setValues({ ...formContext.values, [name]: e.target.value });
 
     if (validators && formContext.wasFirstSubmit) {
-      const error = validate(value, validators);
+      const error = validate(e.target.value, validators);
       const currentErrors = { ...formContext.errors };
 
       if (error) {
