@@ -1,13 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-type Props = {
-  fullpage?: boolean;
-};
-
-export const Loader: React.FC<Props> = (props) => {
+export const Loader: React.FC = () => {
   return (
-    <LoaderIcon {...props}>
+    <LoaderIcon>
       <svg viewBox="0 0 570 420" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M420.873 28.724C451.792 29.986 480.37 43.213 501.34 65.97C522.31 88.725 533.164 118.286 531.901 149.205C530.639 180.124 517.412 208.701 494.656 229.671C473.092 249.544 445.413 260.331 416.262 260.332C414.651 260.332 413.04 260.299 411.421 260.233C347.593 257.626 297.787 203.579 300.393 139.752C301.655 108.833 314.882 80.256 337.638 59.286C359.197 39.418 386.862 28.624 416.004 28.624C417.622 28.624 419.246 28.657 420.873 28.724ZM454.223 185.795C465.259 175.624 471.674 161.766 472.286 146.77C472.898 131.774 467.635 117.438 457.465 106.402C436.47 83.621 400.855 82.165 378.072 103.16C355.29 124.155 353.835 159.77 374.83 182.553C385.892 194.557 401.006 200.638 416.169 200.638C429.786 200.638 443.444 195.729 454.223 185.795ZM417.215 118.313C424.204 118.599 430.663 121.589 435.403 126.732C440.143 131.875 442.597 138.557 442.31 145.546C442.025 152.535 439.035 158.994 433.892 163.734C423.274 173.519 406.675 172.841 396.89 162.223C392.15 157.079 389.697 150.398 389.982 143.409C390.268 136.42 393.257 129.961 398.401 125.221C403.545 120.481 410.231 118.037 417.215 118.313Z"
@@ -26,17 +22,16 @@ export const Loader: React.FC<Props> = (props) => {
   );
 };
 
-const LoaderIcon = styled.div<{ fullpage?: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: ${({ fullpage }) => fullpage && "100vh"};
+const LoaderIcon = styled.div`
+  position: fixed;
+  top: 0;
+  left: 4px;
 
   svg {
-    width: 60px;
-    height: 60px;
+    width: 28px;
+    height: 28px;
     margin: 0 auto;
-    fill: ${({ theme }) => theme.iconBtn.base};
+    fill: ${({ theme }) => theme.bg.primary};
   }
 
   path {
@@ -46,13 +41,13 @@ const LoaderIcon = styled.div<{ fullpage?: boolean }>`
 
   .biceps-top {
     transform-origin: 38% 88%;
-    animation: scale 0.5s ease-out infinite alternate;
+    animation: scale 0.3s ease-out infinite alternate;
   }
 
   .biceps-bottom,
   .bar {
     transform-origin: 38% 88%;
-    animation: animate 0.5s ease-out infinite alternate;
+    animation: animate 0.3s ease-out infinite alternate;
   }
 
   @keyframes scale {

@@ -49,7 +49,7 @@ export const AuthenticatedApp: React.FC<Props> = (props) => {
   }, [routineIsFetching, workoutsIsFetching, exersizesIsFetching]);
 
   if (dataIsFetching) {
-    return <Loader fullpage />;
+    return <Loader />;
   }
 
   return (

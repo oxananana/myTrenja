@@ -16,7 +16,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       {auth.isFetching ? (
-        <Loader fullpage />
+        <Loader />
       ) : (
         <PageContainer>
           <Route path="/login">
