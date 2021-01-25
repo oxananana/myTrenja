@@ -44,6 +44,16 @@ const Input = styled.input`
   padding: 0 4px;
   text-align: center;
   -moz-appearance: textfield;
+  border: 1px solid transparent;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.border.inputHover};
+  }
+
+  &:focus {
+    border-color: ${({ theme }) => theme.border.inputFocus};
+    outline: 0;
+  }
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

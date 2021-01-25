@@ -1,6 +1,5 @@
 {
   "projects": {
-    "default": "mytrenja",
-    "mytrenja": "mytrenja"
+    "default": "mytrenja"
   }
 }
