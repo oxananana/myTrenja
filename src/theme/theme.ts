@@ -10,9 +10,11 @@ export const theme = {
     base: primary,
     baseInvert: "#fff",
     grey: "#797979",
+    error: "#e82929",
   },
   border: {
     inputHover: "#e4e4e4",
+    error: "#ffadad",
   },
   shadow: {
     base: "0px 2px 8px rgba(0, 0, 0, 0.05)",

@@ -10,15 +10,8 @@ type AuthState = {
 
 const initialState: AuthState = {
   user: null,
-  isFetching: false,
+  isFetching: true,
 };
-
-export const login = createAsyncThunk(
-  "auth/login",
-  async ({ email, password }: { email: string; password: string }) => {
-    await authAPI.login(email, password);
-  }
-);
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authAPI.logout();
@@ -34,15 +27,6 @@ const authSlice = createSlice({
     setUser(state, action: PayloadAction<Nullable<User>>) {
       state.user = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(login.pending, (state) => {
-        state.isFetching = true;
-      })
-      .addCase(login.fulfilled, (state) => {
-        state.isFetching = false;
-      });
   },
 });
 

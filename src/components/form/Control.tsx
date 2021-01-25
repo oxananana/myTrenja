@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { validate, Validators } from "../../utils/validators";
-import { FormContext } from "./Form";
+import { FormContext, FormValidators } from "./Form";
 
 type Props = {
   fieldType: string;
   type?: string;
-  validators: Validators;
+  validators?: Validators;
   name: string;
   autoFocus?: boolean;
   className: string | undefined;
@@ -18,9 +18,8 @@ export const Control: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (validators) {
-      formContext.setValidators({
-        ...formContext.validators,
-        [name]: validators,
+      formContext.setValidators((prevValidators: FormValidators) => {
+        return { ...prevValidators, [name]: validators };
       });
     }
   }, []); // eslint-disable-line

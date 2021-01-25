@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import styled from "styled-components";
 import {
   getRoutineIsFetching,
   getRoutine,
@@ -54,7 +53,7 @@ export const AuthenticatedApp: React.FC<Props> = (props) => {
   }
 
   return (
-    <PageContainer>
+    <>
       <Navbar />
       <Switch>
         <Route path="/" exact>
@@ -101,13 +100,6 @@ export const AuthenticatedApp: React.FC<Props> = (props) => {
           <PageNotFound />
         </Route>
       </Switch>
-    </PageContainer>
+    </>
   );
 };
-
-const PageContainer = styled.div`
-  margin: 0 auto;
-  max-width: 420px;
-  padding: 24px 24px 56px;
-  position: relative;
-`;

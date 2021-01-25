@@ -12,7 +12,7 @@ type Props = {
   name: string;
   error?: string;
   autoFocus?: boolean;
-  validators: Validators;
+  validators?: Validators;
   children?: React.ReactChild;
 };
 
@@ -52,7 +52,7 @@ const Field = styled.div`
     }
 
     &.error {
-      border-color: ${({ theme }) => theme.text.error};
+      border-color: ${({ theme }) => theme.border.error};
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import styled from "styled-components";
 import { validate, Validators } from "../../utils/validators";
 import { Nullable } from "../../commonTypes";
@@ -21,16 +21,16 @@ type FormContextType = {
   errors: FormErrors;
   wasFirstSubmit: boolean;
   setValues: (values: FormValues) => void;
-  setValidators: (validators: FormValidators) => void;
+  setValidators: (fn: (validators: FormValidators) => FormValidators) => void;
   setErrors: (errors: FormErrors) => void;
 };
 
-type FormValues = Record<string, any>;
+export type FormValues = Record<string, any>;
 export type FormValidators = Record<string, Validators>;
 export type FormErrors = Record<string, string>;
 
 type Props = {
-  initialValues: FormValues;
+  initialValues?: FormValues;
   children: React.ReactNode;
   commonError?: Nullable<string>;
   fieldErrors?: FormErrors;
@@ -38,7 +38,13 @@ type Props = {
 };
 
 export const Form: React.FC<Props> = (props) => {
-  const { children, onSubmit, commonError, fieldErrors, initialValues } = props;
+  const {
+    children,
+    onSubmit,
+    commonError,
+    fieldErrors = {},
+    initialValues = {},
+  } = props;
 
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -55,9 +61,9 @@ export const Form: React.FC<Props> = (props) => {
     setErrors,
   };
 
-  // useEffect(() => {
-  //   setErrors(fieldErrors || {});
-  // }, [fieldErrors]);
+  useEffect(() => {
+    setErrors(fieldErrors);
+  }, [fieldErrors]);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -92,10 +98,6 @@ export const Form: React.FC<Props> = (props) => {
       </form>
     </FormContext.Provider>
   );
-};
-
-Form.defaultProps = {
-  fieldErrors: {},
 };
 
 const ErrorMessageCommon = styled.div`
