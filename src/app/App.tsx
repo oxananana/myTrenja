@@ -8,6 +8,7 @@ import { useAuthState } from "../hooks/useAuthState";
 import { Loader } from "../components/Loader";
 import { AuthenticatedApp } from "./AuthenticatedApp";
 import { LoginPage } from "../features/login/LoginPage";
+import { ErrorBoundary } from "../components/ErrorBoundary";
 
 const App: React.FC = () => {
   const auth = useAuthState();
@@ -15,16 +16,20 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      {auth.isFetching ? (
-        <Loader />
-      ) : (
-        <PageContainer>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          {auth.user && <AuthenticatedApp />}
-        </PageContainer>
-      )}
+      <PageContainer>
+        <ErrorBoundary>
+          {auth.isFetching ? (
+            <Loader />
+          ) : (
+            <>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              {auth.user && <AuthenticatedApp />}
+            </>
+          )}
+        </ErrorBoundary>
+      </PageContainer>
     </ThemeProvider>
   );
 };
