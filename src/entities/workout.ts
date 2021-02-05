@@ -3,22 +3,24 @@ export type Sets = Record<string, Set>;
 export type Set = {
   weight: number;
   reps: number;
-  id: string;
+  isComplete?: boolean;
 };
 
 export type WorkoutExersize = {
-  id: string;
   order: number;
   sets: Sets;
+  isComplete?: boolean;
 };
 
-export type WorkoutExersizes = WorkoutExersize[];
+export type WorkoutExersizes = Record<string, WorkoutExersize>;
 
 export type Workout = {
-  id: string;
+  workoutId: string;
   title: string;
-  slug: string;
+  slug?: string;
+  date?: string;
   exersizes: WorkoutExersizes;
+  isDefault: boolean;
 };
 
 export type WorkoutSlug = {

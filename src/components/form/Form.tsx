@@ -1,27 +1,38 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useReducer,
+  useLayoutEffect,
+  useCallback,
+  useRef,
+} from "react";
 import styled from "styled-components";
-import { validate, Validators } from "../../utils/validators";
+import { setIn, validate, Validators, isFunction } from "../../utils";
 import { Nullable } from "../../commonTypes";
 
-const initialContext: FormContextType = {
+const initialContext: FormContextType<FormValues> = {
+  initialValues: {},
   values: {},
   validators: {},
   errors: {},
   wasFirstSubmit: false,
   setValues: () => {},
-  setValidators: () => {},
+  setFieldValue: () => {},
+  setFieldValidators: () => {},
   setErrors: () => {},
 };
 
-export const FormContext = createContext<FormContextType>(initialContext);
+export const FormContext = createContext<FormContextType<any>>(initialContext);
 
-type FormContextType = {
-  values: FormValues;
+export type FormContextType<Values> = {
+  initialValues: Values;
+  values: Values;
   validators: FormValidators;
   errors: FormErrors;
   wasFirstSubmit: boolean;
-  setValues: (values: FormValues) => void;
-  setValidators: (fn: (validators: FormValidators) => FormValidators) => void;
+  setValues: (values: React.SetStateAction<Values>) => void;
+  setFieldValue: (field: string, value: string) => void;
+  setFieldValidators: (field: string, validators: Validators) => void;
   setErrors: (errors: FormErrors) => void;
 };
 
@@ -29,67 +40,147 @@ export type FormValues = Record<string, any>;
 export type FormValidators = Record<string, Validators>;
 export type FormErrors = Record<string, string>;
 
-type Props = {
-  initialValues?: FormValues;
-  children: React.ReactNode;
+export type FormProps<Values> = {
+  initialValues?: Values;
+  children?: React.ReactNode;
   commonError?: Nullable<string>;
   fieldErrors?: FormErrors;
-  onSubmit: (values: FormValues) => void;
+  onSubmit: (values: Values) => void;
 };
+
+type FormState<Values> = {
+  values: Values;
+  errors: FormErrors;
+  validators: FormValidators;
+  wasFirstSubmit: boolean;
+};
+
+type FormAction<Values> =
+  | { type: "SET_VALUES"; payload: Values }
+  | { type: "SET_FIELD_VALUE"; payload: { field: string; value: string } }
+  | {
+      type: "SET_FIELD_VALIDATORS";
+      payload: { field: string; validators: Validators };
+    }
+  | { type: "SET_ERRORS"; payload: FormErrors }
+  | { type: "SET_WAS_FIRST_SUBMIT"; payload: boolean };
 
 const defaultFieldErrors = {};
 
-export const Form: React.FC<Props> = (props) => {
+function formReducer<Values>(
+  state: FormState<Values>,
+  action: FormAction<Values>
+) {
+  switch (action.type) {
+    case "SET_FIELD_VALUE":
+      return {
+        ...state,
+        values: setIn(state.values, action.payload.field, action.payload.value),
+      };
+    case "SET_VALUES":
+      return { ...state, values: action.payload };
+    case "SET_ERRORS":
+      return { ...state, errors: action.payload };
+    case "SET_FIELD_VALIDATORS":
+      return {
+        ...state,
+        validators: {
+          ...state.validators,
+          [action.payload.field]: action.payload.validators,
+        },
+      };
+    case "SET_WAS_FIRST_SUBMIT":
+      return { ...state, wasFirstSubmit: action.payload };
+    default:
+      return state;
+  }
+}
+
+export function Form<Values extends FormValues = FormValues>(
+  props: FormProps<Values>
+) {
   const {
     children,
     onSubmit,
     commonError,
     fieldErrors = defaultFieldErrors,
-    initialValues = {},
+    initialValues = {} as Values,
   } = props;
 
-  const [values, setValues] = useState<FormValues>(initialValues);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [validators, setValidators] = useState<FormValidators>({});
-  const [wasFirstSubmit, setWasFirstSubmit] = useState(false);
+  const initialValuesRef = useRef(initialValues);
 
-  const formContext: FormContextType = {
-    values,
-    validators,
-    errors,
-    wasFirstSubmit,
-    setValues,
-    setValidators,
-    setErrors,
-  };
+  const [state, dispatch] = useReducer<
+    React.Reducer<FormState<Values>, FormAction<Values>>
+  >(formReducer, {
+    values: props.initialValues || ({} as Values),
+    errors: {},
+    validators: {},
+    wasFirstSubmit: false,
+  });
 
   useEffect(() => {
-    setErrors(fieldErrors);
+    dispatch({ type: "SET_ERRORS", payload: fieldErrors });
   }, [fieldErrors]);
+
+  const setFieldValue = useSetStateCallback((field: string, value: string) => {
+    dispatch({ type: "SET_FIELD_VALUE", payload: { field, value } });
+  });
+
+  const setValues = useSetStateCallback(
+    (values: React.SetStateAction<Values>) => {
+      dispatch({
+        type: "SET_VALUES",
+        payload: isFunction(values) ? values(state.values) : values,
+      });
+    }
+  );
+
+  const setFieldValidators = useCallback(
+    (field: string, validators: Validators) => {
+      dispatch({
+        type: "SET_FIELD_VALIDATORS",
+        payload: { field, validators },
+      });
+    },
+    []
+  );
+
+  const setErrors = useCallback((errors: FormErrors) => {
+    dispatch({ type: "SET_ERRORS", payload: errors });
+  }, []);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    if (!wasFirstSubmit) {
-      setWasFirstSubmit(true);
+    if (!state.wasFirstSubmit) {
+      dispatch({ type: "SET_WAS_FIRST_SUBMIT", payload: true });
     }
 
     let errors = {};
-    if (validators) {
-      Object.entries(validators).forEach(([name, fieldValidators]) => {
+    if (state.validators) {
+      Object.entries(state.validators).forEach(([name, fieldValidators]) => {
         if (fieldValidators) {
-          const error = validate(values[name], fieldValidators);
+          const error = validate(state.values[name], fieldValidators);
           if (error) {
             errors = { ...(errors || {}), [name]: error };
           }
         }
       });
-      setErrors(errors);
+      dispatch({ type: "SET_ERRORS", payload: errors });
     }
 
     if (Object.keys(errors).length === 0) {
-      onSubmit(values);
+      onSubmit(state.values);
     }
+  };
+
+  const formContext: FormContextType<Values> = {
+    ...state,
+    initialValues: initialValuesRef.current,
+    setFieldValue,
+    setValues,
+    setFieldValidators,
+    setErrors,
   };
 
   return (
@@ -100,7 +191,19 @@ export const Form: React.FC<Props> = (props) => {
       </form>
     </FormContext.Provider>
   );
-};
+}
+
+function useSetStateCallback(callback: (...args: any[]) => any) {
+  const ref = useRef(callback);
+
+  useLayoutEffect(() => {
+    ref.current = callback;
+  });
+
+  return useCallback((...args: any[]) => {
+    return ref.current.apply(null, args);
+  }, []);
+}
 
 const ErrorMessageCommon = styled.div`
   color: ${({ theme }) => theme.text.error};

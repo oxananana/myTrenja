@@ -2,18 +2,19 @@ import React, { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../app/rootReducer";
+import { Routine } from "../entities/routine";
 import { WorkoutSlugs } from "../entities/workout";
 import { PageNotFound } from "../features/PageNotFound";
 
 type Props = {
-  stateSelector: (state: RootState) => WorkoutSlugs;
-  slug: "workoutSlug" | "dayId";
+  stateSelector: (state: RootState) => WorkoutSlugs | Routine;
+  slug: "workoutSlug" | "routineWorkoutId";
   children: ReactElement;
 };
 
 type Params = {
   workoutSlug: string;
-  dayId: string;
+  routineWorkoutId: string;
 };
 
 export const CheckSlugContainer: React.FC<Props> = (props) => {

@@ -4,7 +4,7 @@ import { authAPI } from "../../api/authAPI";
 import { Nullable } from "../../commonTypes";
 import { Button } from "../../components/Button";
 import { Form, FormErrors } from "../../components/form/Form";
-import { FormField } from "../../components/form/FormField";
+import { Field } from "../../components/form/Field";
 import { Loader } from "../../components/Loader";
 import { PageTitle } from "../../components/PageTitle";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
@@ -75,16 +75,14 @@ export const LoginPage: React.FC<Props> = (props) => {
     >
       {isFetching && <Loader />}
       <PageTitle>Войти в приложение</PageTitle>
-      <FormField
-        fieldType="input"
+      <Field
         type="text"
         label="E-mail"
         name="email"
         validators={[required]}
         autoFocus
       />
-      <FormField
-        fieldType="input"
+      <Field
         type="password"
         label="Пароль"
         name="password"

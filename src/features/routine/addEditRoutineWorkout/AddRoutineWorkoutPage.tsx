@@ -1,20 +1,34 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 import { PageTitle } from "../../../components/PageTitle";
-import { AddEditRoutineDayForm } from "./AddEditRoutineDayForm";
+import { AddEditRoutineWorkoutForm } from "./AddEditRoutineWorkoutForm";
 import { Button } from "../../../components/Button";
+import { workoutsAPI } from "../../../api/workoutsAPI";
+import { createWorkout } from "../../workouts/workoutsSlice";
+import { Workout } from "../../../entities/workout";
+import { useHistory } from "react-router-dom";
 
 type Props = {};
 
-export const AddRoutineDayPage: React.FC<Props> = (props) => {
+export const AddRoutineWorkoutPage: React.FC<Props> = (props) => {
   useDocumentTitle("Новый тренировочный день");
+  let history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values: Workout) => {
+    const newId = await workoutsAPI.fetchNewKey();
+    dispatch(createWorkout(values, newId));
+    history.push(`/routine/${newId}`);
+  };
 
   return (
     <>
       <PageTitle>Новый тренировочный день</PageTitle>
-      <AddEditRoutineDayForm
-        dayId={getTodayDate()}
+      <AddEditRoutineWorkoutForm
+        date={getTodayDate()}
         formAction="add"
+        onSubmit={handleSubmit}
         buttons={
           <>
             <Button invert={true} to="/routine">

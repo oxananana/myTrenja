@@ -1,43 +1,44 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { formatToReadableDate } from "../../utils/formatToReadableDate";
-import { RoutineDay } from "../../entities/routine";
 import { ActionsButton } from "../../components/ActionsButton";
 import { NavLink } from "react-router-dom";
-import { Workouts } from "../../entities/workout";
-import { Exersizes } from "../../entities/exersize";
+import { getExersizes } from "../../selectors/selectors";
 
-type Props = RoutineDay & {
-  workoutsBase: Workouts;
-  exersizeBase: Exersizes;
+type Props = {
+  id: string;
+  date?: string;
+  title: string;
+  exersizesIds: string[];
 };
 
-export const RoutineDayCard: React.FC<Props> = (props) => {
-  const { id, workoutId, workoutsBase, exersizeBase } = props;
+export const RoutineWorkoutCard: React.FC<Props> = (props) => {
+  const { id, date = "", title, exersizesIds } = props;
 
-  const { title, exersizes } = workoutsBase[workoutId];
+  const exersizeBase = useSelector(getExersizes);
 
   return (
-    <RoutineDayNavLink to={`/routine/${id}`}>
+    <RoutineWorkoutNavLink to={`/routine/${id}`}>
       <Header>
-        <DayDate>{formatToReadableDate(id)}</DayDate>
-        <ActionsButton onClick={() => {}} />
+        <WorkoutDate>{formatToReadableDate(date)}</WorkoutDate>
+        {/* <ActionsButton onClick={() => {}} /> */}
       </Header>
       <Title>{title}</Title>
       <ExersizesList>
-        {exersizes.map((item) => {
+        {exersizesIds.map((exersizeId) => {
           return (
-            <ExersizesListItem key={item.id}>
-              {exersizeBase[item.id].title}
+            <ExersizesListItem key={exersizeId}>
+              {exersizeBase[exersizeId].title}
             </ExersizesListItem>
           );
         })}
       </ExersizesList>
-    </RoutineDayNavLink>
+    </RoutineWorkoutNavLink>
   );
 };
 
-const RoutineDayNavLink = styled(NavLink)`
+const RoutineWorkoutNavLink = styled(NavLink)`
   display: block;
   box-shadow: ${({ theme }) => theme.shadow.base};
   border-radius: ${({ theme }) => theme.borderRadius.base};
@@ -61,7 +62,7 @@ const Header = styled.div`
   margin-bottom: 8px;
 `;
 
-const DayDate = styled.div``;
+const WorkoutDate = styled.div``;
 
 const Title = styled.div`
   font-size: 16px;

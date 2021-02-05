@@ -17,8 +17,8 @@ export const WorkoutsPage: FC<Props> = (props) => {
       <AddButtonHeader title="Тренировки" link="/workouts/add-workout" />
 
       <WorkoutsList>
-        {Object.values(workouts).map((workout) => {
-          return <WorkoutCard key={workout.id} workout={workout} />;
+        {Object.entries(workouts).map(([id, workout]) => {
+          return <WorkoutCard key={id} id={id} workout={workout} />;
         })}
       </WorkoutsList>
     </Workouts>

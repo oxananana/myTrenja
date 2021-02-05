@@ -2,19 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { Sets as SetsType } from "../../../entities/workout";
 import { Set } from "./Set";
-import { SetsParams } from "../../../entities/routine";
 import { Checkbox } from "../../../components/form/Checkbox";
 
 type Props = {
+  isForm: boolean;
+  exersizeId: string;
   title: string;
   order: number;
   sets: SetsType;
-  setsParams?: SetsParams;
   isComplete?: boolean;
 };
 
 export const WorkoutExersize: React.FC<Props> = (props) => {
-  const { title, order, sets, setsParams, isComplete } = props;
+  const { isForm, exersizeId, title, order, sets, isComplete } = props;
 
   return (
     <ExersizeContainer>
@@ -22,26 +22,20 @@ export const WorkoutExersize: React.FC<Props> = (props) => {
         <Title>
           {order}. {title}
         </Title>
-        {isComplete !== undefined && (
+        {/* {isComplete !== undefined && (
           <IsCompleteCheckbox checked={isComplete} />
-        )}
+        )} */}
       </Header>
       <Sets>
-        {Object.values(sets).map((set, index) => {
-          const id = set.id;
-          const setParams = setsParams?.[id];
-          const isComplete = setParams?.isComplete;
-
-          const weight = setParams?.weight ?? set.weight;
-          const reps = setParams?.reps ?? set.reps;
-
+        {Object.entries(sets).map(([id, set]) => {
           return (
             <Set
-              id={id}
+              fieldName={`exersizes.${exersizeId}.sets.${id}`}
+              isForm={isForm}
               key={id}
-              weight={weight}
-              reps={reps}
-              isComplete={isComplete}
+              weight={set.weight}
+              reps={set.reps}
+              // isComplete={set.isComplete}
             />
           );
         })}

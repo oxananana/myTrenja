@@ -1,41 +1,51 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { WorkoutExersizes as WorkoutExersizesType } from "../../../entities/workout";
-import { ExersizesParams } from "../../../entities/routine";
-import { WorkoutExersize } from "./WorkoutExersize";
 import { useSelector } from "react-redux";
+import {
+  WorkoutExersize as WorkoutExersizeType,
+  WorkoutExersizes as WorkoutExersizesType,
+} from "../../../entities/workout";
+import { WorkoutExersize } from "./WorkoutExersize";
 import { getExersizes } from "../../../selectors/selectors";
 
 type Props = {
+  isForm: boolean;
   exersizes: WorkoutExersizesType;
-  exersizesParams?: ExersizesParams;
 };
 
 export const WorkoutExersizes: React.FC<Props> = (props) => {
-  const { exersizes, exersizesParams } = props;
+  const { isForm, exersizes } = props;
 
   const exersizeBase = useSelector(getExersizes);
 
+  const orderedExersizes = Object.entries(exersizes)
+    .map(([id, exersize]: [id: string, exersize: WorkoutExersizeType]) => {
+      return { ...exersize, id };
+    })
+    .sort((current, next) => {
+      return current.order - next.order;
+    });
+
   return (
     <ExersizesList>
-      {exersizes.map((exersize, index) => {
-        const { id, sets } = exersize;
-        const exersizeParams = exersizesParams?.[id];
+      {orderedExersizes.map(
+        (exersize: WorkoutExersizeType & { id: string }) => {
+          // const isComplete = exersize.isComplete ? exersize.isComplete : undefined;
+          const isComplete = false;
 
-        const setsParams = exersizeParams?.sets;
-        const isComplete = exersizeParams?.isComplete;
-
-        return (
-          <WorkoutExersize
-            key={id}
-            title={exersizeBase[id].title}
-            order={index + 1}
-            sets={sets}
-            setsParams={setsParams}
-            isComplete={isComplete}
-          />
-        );
-      })}
+          return (
+            <WorkoutExersize
+              key={exersize.id}
+              isForm={isForm}
+              exersizeId={exersize.id}
+              title={exersizeBase[exersize.id].title}
+              order={exersize.order}
+              sets={exersize.sets}
+              isComplete={isComplete}
+            />
+          );
+        }
+      )}
     </ExersizesList>
   );
 };

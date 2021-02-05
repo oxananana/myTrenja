@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import {
-  getRoutineIsFetching,
-  getRoutine,
+  // getRoutineIsFetching,
+  getRoutineWorkouts,
   getWorkoutsIsFetching,
   getWorkoutSlugs,
   getExersizesIsFetching,
 } from "../selectors/selectors";
-import { fetchRoutine } from "../features/routine/routineSlice";
 import { fetchWorkouts } from "../features/workouts/workoutsSlice";
 import { fetchExersizes } from "../features/exersizes/exersizesSlice";
 import { Loader } from "../components/Loader";
 import { RoutinePage } from "../features/routine/RoutinePage";
-import { RoutineDayPage } from "../features/routine/RoutineDayPage";
+import { RoutineWorkoutPage } from "../features/routine/RoutineWorkoutPage";
 import { WorkoutsPage } from "../features/workouts/workoutsPage/WorkoutsPage";
 import { WorkoutPage } from "../features/workouts/workoutPage/WorkoutPage";
 import { AddEditWorkoutPage } from "../features/workouts/addEditWorkout/AddEditWorkoutPage";
@@ -21,14 +20,13 @@ import { ExersizesPage } from "../features/exersizes/ExersizesPage";
 import { AnalyticPage } from "../features/analytic/AnalyticPage";
 import { AccountPage } from "../features/account/AccountPage";
 import { Navbar } from "../components/navbar/Navbar";
-import { AddRoutineDayPage } from "../features/routine/addEditRoutineDay/AddRoutineDayPage";
+import { AddRoutineWorkoutPage } from "../features/routine/addEditRoutineWorkout/AddRoutineWorkoutPage";
 import { CheckSlugContainer } from "../components/CheckSlugContainer";
 import { PageNotFound } from "../features/PageNotFound";
 
 type Props = {};
 
 export const AuthenticatedApp: React.FC<Props> = (props) => {
-  const routineIsFetching = useSelector(getRoutineIsFetching);
   const workoutsIsFetching = useSelector(getWorkoutsIsFetching);
   const exersizesIsFetching = useSelector(getExersizesIsFetching);
 
@@ -37,16 +35,13 @@ export const AuthenticatedApp: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchRoutine());
     dispatch(fetchWorkouts());
     dispatch(fetchExersizes());
   }, [dispatch]);
 
   useEffect(() => {
-    setDataIsFetching(
-      routineIsFetching || workoutsIsFetching || exersizesIsFetching
-    );
-  }, [routineIsFetching, workoutsIsFetching, exersizesIsFetching]);
+    setDataIsFetching(workoutsIsFetching || exersizesIsFetching);
+  }, [workoutsIsFetching, exersizesIsFetching]);
 
   if (dataIsFetching) {
     return <Loader />;
@@ -62,12 +57,15 @@ export const AuthenticatedApp: React.FC<Props> = (props) => {
         <Route path="/account">
           <AccountPage />
         </Route>
-        <Route path="/routine/add-routine-day" exact>
-          <AddRoutineDayPage />
+        <Route path="/routine/add-routine-workout" exact>
+          <AddRoutineWorkoutPage />
         </Route>
-        <Route path="/routine/:dayId">
-          <CheckSlugContainer stateSelector={getRoutine} slug="dayId">
-            <RoutineDayPage />
+        <Route path="/routine/:routineWorkoutId">
+          <CheckSlugContainer
+            stateSelector={getRoutineWorkouts}
+            slug="routineWorkoutId"
+          >
+            <RoutineWorkoutPage />
           </CheckSlugContainer>
         </Route>
         <Route path="/routine">

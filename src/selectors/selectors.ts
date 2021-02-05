@@ -1,15 +1,30 @@
 import { RootState } from "../app/rootReducer";
+import { Workouts } from "../entities/workout";
 
-export const getRoutine = (state: RootState) => {
-  return state.routine.data;
-};
-
-export const getRoutineIsFetching = (state: RootState) => {
-  return state.routine.isFetching;
+export const getAllWorkouts = (state: RootState) => {
+  return state.workouts.catalog;
 };
 
 export const getWorkouts = (state: RootState) => {
-  return state.workouts.catalog;
+  const allWorkouts = getAllWorkouts(state);
+  let workouts: Workouts = {};
+  for (let id in allWorkouts) {
+    if (allWorkouts[id].isDefault) {
+      workouts[id] = allWorkouts[id];
+    }
+  }
+  return workouts;
+};
+
+export const getRoutineWorkouts = (state: RootState) => {
+  const allWorkouts = getAllWorkouts(state);
+  let routineWorkouts: Workouts = {};
+  for (let id in allWorkouts) {
+    if (!allWorkouts[id].isDefault) {
+      routineWorkouts[id] = allWorkouts[id];
+    }
+  }
+  return routineWorkouts;
 };
 
 export const getWorkoutsIsFetching = (state: RootState) => {

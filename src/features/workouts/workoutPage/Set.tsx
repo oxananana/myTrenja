@@ -1,25 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 import { Set as SetType } from "../../../entities/workout";
-import { InputMini } from "../../../components/form/InputMini";
+import { SetParam } from "./SetParam";
 import { Checkbox } from "../../../components/form/Checkbox";
 import { Icon } from "../../../components/Icon";
 
-type Props = SetType & { isComplete?: boolean };
+type Props = SetType & {
+  isForm: boolean;
+  isComplete?: boolean;
+  fieldName: string;
+};
 
 export const Set: React.FC<Props> = (props) => {
-  const { weight, reps, isComplete } = props;
+  const { isForm, fieldName, weight, reps, isComplete } = props;
 
   return (
     <SetContainer>
       <Reps>
-        <InputMini value={weight.toString()} unit="ед." />
+        <SetParam
+          isForm={isForm}
+          name={`${fieldName}.weight`}
+          value={weight.toString()}
+          unit="ед."
+        />
         <IconContainer>
           <Icon name="multiple" />
         </IconContainer>
-        <InputMini value={reps.toString()} unit="повт." />
+        <SetParam
+          isForm={isForm}
+          name={`${fieldName}.reps`}
+          value={reps.toString()}
+          unit="повт."
+        />
       </Reps>
-      {isComplete !== undefined && <IsCompleteCheckbox checked={isComplete} />}
+      {/* {isComplete !== undefined && <IsCompleteCheckbox checked={isComplete} />} */}
     </SetContainer>
   );
 };

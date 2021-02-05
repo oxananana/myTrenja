@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { AppThunk } from "./../../app/store";
 import { Workout, Workouts, WorkoutSlugs } from "../../entities/workout";
 import { workoutsAPI } from "../../api/workoutsAPI";
 
@@ -26,14 +27,13 @@ const workoutsSlice = createSlice({
   name: "workouts",
   initialState,
   reducers: {
-    addWorkout(state, action: PayloadAction<Workout>) {
-      const workout = action.payload;
-      state.catalog[workout.id] = workout;
-    },
-    editWorkout(state, action: PayloadAction<Workout>) {
-      const workout = action.payload;
-      let prevWorkout = state.catalog[workout.id];
-      prevWorkout = { ...prevWorkout, ...workout };
+    updateWorkouts(
+      state,
+      action: PayloadAction<{ workout: Workout; id: string }>
+    ) {
+      const { workout, id } = action.payload;
+      state.catalog[id] = workout;
+      debugger;
     },
     deleteWorkout(state, action: PayloadAction<{ id: string }>) {
       delete state.catalog[action.payload.id];
@@ -58,6 +58,28 @@ const workoutsSlice = createSlice({
   },
 });
 
-export const { addWorkout, editWorkout, deleteWorkout } = workoutsSlice.actions;
+export const createWorkout = (workout: Workout, id: string): AppThunk => async (
+  dispatch
+) => {
+  try {
+    dispatch(updateWorkouts({ workout, id }));
+    const response = await workoutsAPI.createWorkout(workout, id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateWorkout = (workout: Workout, id: string): AppThunk => async (
+  dispatch
+) => {
+  try {
+    dispatch(updateWorkouts({ workout, id }));
+    const response = await workoutsAPI.updateWorkout(workout, id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const { updateWorkouts, deleteWorkout } = workoutsSlice.actions;
 
 export const workoutsReducer = workoutsSlice.reducer;

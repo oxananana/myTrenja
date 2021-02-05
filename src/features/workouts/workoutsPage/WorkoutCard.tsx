@@ -8,6 +8,7 @@ import { deleteWorkout } from "../workoutsSlice";
 import { getExersizes } from "../../../selectors/selectors";
 
 type Props = {
+  id: string;
   workout: WorkoutType;
 };
 
@@ -16,24 +17,24 @@ export const WorkoutCard: React.FC<Props> = (props) => {
 
   const dispatch = useDispatch();
 
-  const { id, title, exersizes, slug } = props.workout;
+  const { title, exersizes, slug } = props.workout;
 
   const handleDeleteWorkout = (e: any) => {
     e.preventDefault();
-    dispatch(deleteWorkout({ id }));
+    // dispatch(deleteWorkout({ id }));
   };
 
   return (
     <WorkoutNavLink to={`/workouts/${slug}`}>
       <Header>
         <Title>{title}</Title>
-        <ActionsButton onClick={() => {}} />
+        {/* <ActionsButton onClick={() => {}} /> */}
       </Header>
       <ExersizesList>
-        {exersizes.map((exersize) => {
+        {Object.keys(exersizes).map((id) => {
           return (
-            <ExersizesListItem key={exersize.id}>
-              {exersizeBase[exersize.id].title}
+            <ExersizesListItem key={id}>
+              {exersizeBase[id].title}
             </ExersizesListItem>
           );
         })}
