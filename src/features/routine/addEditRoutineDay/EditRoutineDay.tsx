@@ -3,13 +3,13 @@ import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 import { PageTitle } from "../../../components/PageTitle";
 import { AddEditRoutineDayForm } from "./AddEditRoutineDayForm";
 import { Button } from "../../../components/Button";
-import { ExersizesParams } from "../../../entities/routine";
+import { RoutineExersizes } from "../../../entities/routine";
 
 type Props = {
   toggleEditMode: () => void;
   dayId: string;
   workoutId: string;
-  exersizesParams: ExersizesParams;
+  exersizes: RoutineExersizes;
 };
 
 export const EditRoutineDay: React.FC<Props> = (props) => {
@@ -21,7 +21,7 @@ export const EditRoutineDay: React.FC<Props> = (props) => {
       <AddEditRoutineDayForm
         dayId={props.dayId}
         workoutId={props.workoutId}
-        exersizesParams={props.exersizesParams}
+        exersizes={props.exersizes}
         formAction="edit"
         buttons={
           <>

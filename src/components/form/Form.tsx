@@ -1,26 +1,28 @@
 import React, { useState, createContext, useEffect } from "react";
 import styled from "styled-components";
-import { validate, Validators } from "../../utils/validators";
+import { setIn, validate, Validators } from "../../utils";
 import { Nullable } from "../../commonTypes";
 
-const initialContext: FormContextType = {
+const initialContext: FormContextType<FormValues> = {
   values: {},
   validators: {},
   errors: {},
   wasFirstSubmit: false,
   setValues: () => {},
+  setFieldValue: () => {},
   setValidators: () => {},
   setErrors: () => {},
 };
 
-export const FormContext = createContext<FormContextType>(initialContext);
+export const FormContext = createContext<FormContextType<any>>(initialContext);
 
-type FormContextType = {
-  values: FormValues;
+export type FormContextType<V> = {
+  values: V;
   validators: FormValidators;
   errors: FormErrors;
   wasFirstSubmit: boolean;
   setValues: (values: FormValues) => void;
+  setFieldValue: (name: string, value: string) => void;
   setValidators: (fn: (validators: FormValidators) => FormValidators) => void;
   setErrors: (errors: FormErrors) => void;
 };
@@ -53,14 +55,8 @@ export const Form: React.FC<Props> = (props) => {
   const [validators, setValidators] = useState<FormValidators>({});
   const [wasFirstSubmit, setWasFirstSubmit] = useState(false);
 
-  const formContext: FormContextType = {
-    values,
-    validators,
-    errors,
-    wasFirstSubmit,
-    setValues,
-    setValidators,
-    setErrors,
+  const setFieldValue = (name: string, value: string) => {
+    setValues(setIn(values, name, value));
   };
 
   useEffect(() => {
@@ -90,6 +86,17 @@ export const Form: React.FC<Props> = (props) => {
     if (Object.keys(errors).length === 0) {
       onSubmit(values);
     }
+  };
+
+  const formContext: FormContextType<FormValues> = {
+    values,
+    validators,
+    errors,
+    wasFirstSubmit,
+    setFieldValue,
+    setValues,
+    setValidators,
+    setErrors,
   };
 
   return (

@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { Form } from "../../../components/form/Form";
-import { FormField } from "../../../components/form/FormField";
+import { Form, FormValues } from "../../../components/form/Form";
+import { Field } from "../../../components/form/Field";
 import { Workout } from "../../../entities/workout";
-import { ExersizesParams } from "../../../entities/routine";
+import { RoutineExersizes } from "../../../entities/routine";
 import { getWorkouts } from "../../../selectors/selectors";
 import { required } from "../../../utils/validators";
 import { returnNextDays, Day } from "../../../utils/returnNextDays";
@@ -15,28 +15,30 @@ type Props = {
   buttons: React.ReactElement;
   dayId: string;
   workoutId?: string;
-  exersizesParams?: ExersizesParams;
+  exersizes?: RoutineExersizes;
 };
 
 export const AddEditRoutineDayForm: React.FC<Props> = (props) => {
-  const { dayId, workoutId, exersizesParams } = props;
+  const { dayId, workoutId, exersizes } = props;
 
   const initialValues = {
     dayId: dayId,
     workoutId: workoutId || "",
-    exersizesParams: exersizesParams,
+    exersizes: exersizes || {},
   };
   const workouts = useSelector(getWorkouts);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (values: FormValues) => {
+    console.log(values);
+  };
 
   return (
     <FormContainer onSubmit={handleSubmit} initialValues={initialValues}>
       <Fields>
-        <FormField
+        <Field
           label="Дата"
           name="dayId"
-          fieldType="select"
+          component="select"
           validators={[required]}
         >
           <>
@@ -48,11 +50,11 @@ export const AddEditRoutineDayForm: React.FC<Props> = (props) => {
               );
             })}
           </>
-        </FormField>
-        <FormField
+        </Field>
+        <Field
           label="Выбор тренировки"
           name="workoutId"
-          fieldType="select"
+          component="select"
           validators={[required]}
         >
           <>
@@ -65,10 +67,9 @@ export const AddEditRoutineDayForm: React.FC<Props> = (props) => {
               );
             })}
           </>
-        </FormField>
+        </Field>
       </Fields>
-      <FormWorkoutExersizes dayId={dayId} />
-
+      <FormWorkoutExersizes />
       <ButtonContainer>{props.buttons}</ButtonContainer>
     </FormContainer>
   );

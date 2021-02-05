@@ -6,33 +6,46 @@ import { FormContext } from "./Form";
 import { Validators } from "../../utils/validators";
 
 type Props = {
-  fieldType: string;
-  type?: string;
-  label: string;
+  component?: string;
   name: string;
+  type?: string;
+  label?: string;
   error?: string;
   autoFocus?: boolean;
   validators?: Validators;
   children?: React.ReactChild;
+  min?: string;
+  pattern?: string;
 };
 
-export const FormField: React.FC<Props> = (props) => {
-  const { label, children, ...rest } = props;
+export const Field: React.FC<Props> = (props) => {
+  const {
+    label,
+    children,
+    component = "input",
+    type = "text",
+    ...rest
+  } = props;
   const formContext = useContext(FormContext);
   const error = formContext.errors[props.name];
 
   return (
-    <Field>
+    <FieldContainer>
       {label && <Label htmlFor={props.name}>{label}</Label>}
-      <Control {...rest} className={error && "error"}>
+      <Control
+        component={component}
+        type={type}
+        {...rest}
+        className={error && "error"}
+      >
         {children}
       </Control>
       {error && <ErrorMessage>{error}</ErrorMessage>}
-    </Field>
+    </FieldContainer>
   );
 };
 
-const Field = styled.div`
+const FieldContainer = styled.div`
   & + &,
   & + button {
     margin-top: 16px;
@@ -40,6 +53,7 @@ const Field = styled.div`
 
   input[type="text"],
   input[type="password"],
+  input[type="number"],
   textarea,
   select {
     background-color: ${({ theme }) => theme.bg.base};
@@ -82,6 +96,21 @@ const Field = styled.div`
     padding: 12px 16px;
     min-height: 150px;
     resize: vertical;
+  }
+
+  input[type="number"] {
+    background-color: ${({ theme }) => theme.bg.baseGrey};
+    width: 56px;
+    height: 28px;
+    padding: 0 4px;
+    text-align: center;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 `;
 

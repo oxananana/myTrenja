@@ -1,20 +1,23 @@
 import React, { useContext, useEffect } from "react";
 import { validate, Validators } from "../../utils/validators";
 import { FormContext, FormValidators } from "./Form";
+import { getIn } from "../../utils";
 
 type Props = {
-  fieldType: string;
-  type?: string;
-  validators?: Validators;
+  component: string;
+  type: string;
   name: string;
+  validators?: Validators;
   autoFocus?: boolean;
   className: string | undefined;
+  min?: string;
+  pattern?: string;
 };
 
 export const Control: React.FC<Props> = (props) => {
-  const { fieldType, validators, name, ...rest } = props;
+  const { component, validators, name, ...rest } = props;
   const formContext = useContext(FormContext);
-  const value = formContext.values[name] ?? "";
+  const value = getIn(formContext.values, name);
 
   useEffect(() => {
     if (validators) {
@@ -25,10 +28,11 @@ export const Control: React.FC<Props> = (props) => {
   }, []); // eslint-disable-line
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    formContext.setValues({ ...formContext.values, [name]: e.target.value });
+    const newValue = e.target.value;
+    formContext.setFieldValue(name, newValue);
 
     if (validators && formContext.wasFirstSubmit) {
-      const error = validate(e.target.value, validators);
+      const error = validate(newValue, validators);
       const currentErrors = { ...formContext.errors };
 
       if (error) {
@@ -40,16 +44,10 @@ export const Control: React.FC<Props> = (props) => {
     }
   };
 
-  return React.createElement(fieldType, {
+  return React.createElement(component, {
     ...rest,
     value: value,
     name: name,
     onChange: handleChange,
   });
-};
-
-Control.defaultProps = {
-  fieldType: "input",
-  type: "text",
-  name: "text",
 };

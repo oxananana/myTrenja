@@ -1,26 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { WorkoutExersizes } from "../../workouts/workoutPage/WorkoutExersizes";
-import { ExersizesParams } from "../../../entities/routine";
-import { FormContext } from "../../../components/form/Form";
+import { RoutineExersizes } from "../../../entities/routine";
+import { WorkoutExersizes as WorkoutExersizesType } from "../../../entities/workout";
+import { FormContext, FormContextType } from "../../../components/form/Form";
 import { useSelector } from "react-redux";
 import { getWorkouts } from "../../../selectors/selectors";
 
-type Props = {
-  dayId: string;
-  exersizesParams?: ExersizesParams;
+type Props = {};
+
+type FormValues = {
+  workoutId: string;
+  exersizes: RoutineExersizes | WorkoutExersizesType;
 };
 
 export const FormWorkoutExersizes: React.FC<Props> = (props) => {
   const workouts = useSelector(getWorkouts);
-  const formContext = useContext(FormContext);
+  const {
+    values: { workoutId, exersizes },
+    setValues,
+  } = useContext<FormContextType<FormValues>>(FormContext);
 
-  const workoutId = formContext.values.workoutId;
-  const exersizes = workoutId ? workouts[workoutId].exersizes : [];
+  useEffect(() => {
+    setValues((prevValues: FormValues) => {
+      const newExersizes = workoutId ? workouts[workoutId].exersizes : {};
+      return { ...prevValues, exersizes: newExersizes };
+    });
+  }, [workoutId, workouts, setValues]);
 
-  return (
-    <WorkoutExersizes
-      exersizes={exersizes}
-      exersizesParams={props.exersizesParams}
-    />
-  );
+  return <WorkoutExersizes isForm={true} exersizes={exersizes} />;
 };

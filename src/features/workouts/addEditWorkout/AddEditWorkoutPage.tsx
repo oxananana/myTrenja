@@ -16,8 +16,8 @@ export const AddEditWorkoutPage: React.FC<Props> = (props) => {
         id: "id1",
         title: "Трисет-комплекс №1",
         slug: "triset-complex-1",
-        exersizes: [
-          {
+        exersizes: {
+          exersize1: {
             id: "exersize1",
             order: 1,
             sets: {
@@ -25,7 +25,7 @@ export const AddEditWorkoutPage: React.FC<Props> = (props) => {
               set2: { id: "set2", weight: 45, reps: 12 },
             },
           },
-          {
+          exersize2: {
             id: "exersize2",
             order: 2,
             sets: {
@@ -33,7 +33,7 @@ export const AddEditWorkoutPage: React.FC<Props> = (props) => {
               set2: { id: "set2", weight: 45, reps: 12 },
             },
           },
-          {
+          exersize3: {
             id: "exersize3",
             order: 3,
             sets: {
@@ -41,23 +41,7 @@ export const AddEditWorkoutPage: React.FC<Props> = (props) => {
               set2: { id: "set2", weight: 45, reps: 12 },
             },
           },
-          {
-            id: "exersize4",
-            order: 4,
-            sets: {
-              set1: { id: "set1", weight: 45, reps: 12 },
-              set2: { id: "set2", weight: 45, reps: 12 },
-            },
-          },
-          {
-            id: "exersize5",
-            order: 5,
-            sets: {
-              set1: { id: "set1", weight: 45, reps: 12 },
-              set2: { id: "set2", weight: 45, reps: 12 },
-            },
-          },
-        ],
+        },
       })
     );
   };

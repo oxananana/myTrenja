@@ -4,14 +4,18 @@ export type SetParams = Set & { isComplete: boolean };
 
 export type SetsParams = Record<string, SetParams>;
 
-type ExersizeParams = { isComplete: boolean; sets: SetsParams };
+export type RoutineExersize = {
+  isComplete: boolean;
+  id: string;
+  sets: SetsParams;
+};
 
-export type ExersizesParams = Record<string, ExersizeParams>;
+export type RoutineExersizes = Record<string, RoutineExersize>;
 
 export type RoutineDay = {
   id: string;
   workoutId: string;
-  exersizesParams: ExersizesParams;
+  exersizes: RoutineExersizes;
 };
 
 export type Routine = Record<string, RoutineDay>;

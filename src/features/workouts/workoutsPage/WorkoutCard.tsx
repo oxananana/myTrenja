@@ -27,10 +27,10 @@ export const WorkoutCard: React.FC<Props> = (props) => {
     <WorkoutNavLink to={`/workouts/${slug}`}>
       <Header>
         <Title>{title}</Title>
-        <ActionsButton onClick={() => {}} />
+        {/* <ActionsButton onClick={() => {}} /> */}
       </Header>
       <ExersizesList>
-        {exersizes.map((exersize) => {
+        {Object.values(exersizes).map((exersize) => {
           return (
             <ExersizesListItem key={exersize.id}>
               {exersizeBase[exersize.id].title}

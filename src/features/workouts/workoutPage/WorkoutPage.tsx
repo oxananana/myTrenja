@@ -15,7 +15,7 @@ export const WorkoutPage: React.FC<Props> = (props) => {
 
   const { workoutSlug } = useParams<{ workoutSlug: string }>();
   const workout = workouts[workoutSlugs[workoutSlug].id];
-  const { title, exersizes } = workout;
+  const { title, id, exersizes } = workout;
 
   useDocumentTitle(title);
 
@@ -23,9 +23,9 @@ export const WorkoutPage: React.FC<Props> = (props) => {
     <WorkoutContainer>
       <Header>
         <Title>{title}</Title>
-        <ActionsButton onClick={() => {}} />
+        {/* <ActionsButton onClick={() => {}} /> */}
       </Header>
-      <WorkoutExersizes exersizes={exersizes} />
+      <WorkoutExersizes workoutId={id} isForm={false} exersizes={exersizes} />
     </WorkoutContainer>
   );
 };

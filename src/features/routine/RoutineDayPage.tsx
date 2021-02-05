@@ -9,6 +9,7 @@ import { WorkoutExersizes } from "../workouts/workoutPage/WorkoutExersizes";
 import { formatToReadableDate } from "../../utils/formatToReadableDate";
 import { getRoutine, getWorkouts } from "../../selectors/selectors";
 import { Dropdown } from "../../components/Dropdown";
+import { Form } from "../../components/form/Form";
 
 type Props = {};
 
@@ -18,12 +19,16 @@ export const RoutineDayPage: React.FC<Props> = () => {
   const workouts = useSelector(getWorkouts);
 
   const workoutId = routine[dayId].workoutId;
-  const exersizesParams = routine[dayId].exersizesParams;
-  const { title, exersizes } = workouts[workoutId];
+  const exersizes = routine[dayId].exersizes;
+  const { title } = workouts[workoutId];
   const day = formatToReadableDate(dayId);
   useDocumentTitle(`Расписание — ${day}`);
 
-  const [editMode, setEditMode] = useState<boolean>(false);
+  const initialValues = {
+    ...exersizes,
+  };
+
+  const [editMode, setEditMode] = useState<boolean>(true);
   const [dropdownIsOpen, setDropdownIsOpen] = useState<boolean>(false);
 
   const toggleEditMode = () => {
@@ -36,13 +41,15 @@ export const RoutineDayPage: React.FC<Props> = () => {
 
   const removeRoutineDay = () => {};
 
+  const handleSubmit = () => {};
+
   if (editMode) {
     return (
       <EditRoutineDay
         dayId={dayId}
         toggleEditMode={toggleEditMode}
         workoutId={workoutId}
-        exersizesParams={exersizesParams}
+        exersizes={exersizes}
       />
     );
   }
@@ -64,8 +71,9 @@ export const RoutineDayPage: React.FC<Props> = () => {
       </Header>
       <Title>{title}</Title>
       <WorkoutExersizes
+        workoutId={workoutId}
+        isForm={false}
         exersizes={exersizes}
-        exersizesParams={exersizesParams}
       />
     </RoutineDay>
   );
@@ -87,3 +95,5 @@ const Title = styled.div`
   font-weight: 500;
   margin-bottom: 20px;
 `;
+
+const FormContainer = styled(Form)``;

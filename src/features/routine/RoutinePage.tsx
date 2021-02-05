@@ -4,19 +4,13 @@ import { useSelector } from "react-redux";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { RoutineDayCard } from "./RoutineDayCard";
 import { AddButtonHeader } from "../../components/AddButtonHeader";
-import {
-  getRoutine,
-  getWorkouts,
-  getExersizes,
-} from "../../selectors/selectors";
+import { getRoutine } from "../../selectors/selectors";
 
 type Props = {};
 
 export const RoutinePage: React.FC<Props> = (props) => {
   useDocumentTitle("Расписание");
   const routine = useSelector(getRoutine);
-  const workoutsBase = useSelector(getWorkouts);
-  const exersizeBase = useSelector(getExersizes);
 
   return (
     <RoutineContainer>
@@ -24,10 +18,10 @@ export const RoutinePage: React.FC<Props> = (props) => {
       {Object.values(routine).map((routineDay) => {
         return (
           <RoutineDayCard
-            {...routineDay}
+            id={routineDay.id}
             key={routineDay.id}
-            workoutsBase={workoutsBase}
-            exersizeBase={exersizeBase}
+            workoutId={routineDay.workoutId}
+            exersizesIds={Object.keys(routineDay.exersizes)}
           />
         );
       })}

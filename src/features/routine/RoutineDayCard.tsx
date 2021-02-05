@@ -1,34 +1,33 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { formatToReadableDate } from "../../utils/formatToReadableDate";
-import { RoutineDay } from "../../entities/routine";
 import { ActionsButton } from "../../components/ActionsButton";
 import { NavLink } from "react-router-dom";
-import { Workouts } from "../../entities/workout";
-import { Exersizes } from "../../entities/exersize";
+import { getWorkouts, getExersizes } from "../../selectors/selectors";
 
-type Props = RoutineDay & {
-  workoutsBase: Workouts;
-  exersizeBase: Exersizes;
-};
+type Props = { id: string; workoutId: string; exersizesIds: string[] };
 
 export const RoutineDayCard: React.FC<Props> = (props) => {
-  const { id, workoutId, workoutsBase, exersizeBase } = props;
+  const { id, workoutId, exersizesIds } = props;
 
-  const { title, exersizes } = workoutsBase[workoutId];
+  const workoutsBase = useSelector(getWorkouts);
+  const exersizeBase = useSelector(getExersizes);
+
+  const { title } = workoutsBase[workoutId];
 
   return (
     <RoutineDayNavLink to={`/routine/${id}`}>
       <Header>
         <DayDate>{formatToReadableDate(id)}</DayDate>
-        <ActionsButton onClick={() => {}} />
+        {/* <ActionsButton onClick={() => {}} /> */}
       </Header>
       <Title>{title}</Title>
       <ExersizesList>
-        {exersizes.map((item) => {
+        {exersizesIds.map((exersizeId) => {
           return (
-            <ExersizesListItem key={item.id}>
-              {exersizeBase[item.id].title}
+            <ExersizesListItem key={exersizeId}>
+              {exersizeBase[exersizeId].title}
             </ExersizesListItem>
           );
         })}

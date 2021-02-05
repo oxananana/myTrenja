@@ -3,7 +3,7 @@ export type Sets = Record<string, Set>;
 export type Set = {
   weight: number;
   reps: number;
-  id: string;
+  id?: string;
 };
 
 export type WorkoutExersize = {
@@ -12,7 +12,7 @@ export type WorkoutExersize = {
   sets: Sets;
 };
 
-export type WorkoutExersizes = WorkoutExersize[];
+export type WorkoutExersizes = Record<string, WorkoutExersize>;
 
 export type Workout = {
   id: string;
