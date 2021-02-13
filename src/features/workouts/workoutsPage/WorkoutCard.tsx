@@ -25,7 +25,7 @@ export const WorkoutCard: React.FC<Props> = (props) => {
   };
 
   return (
-    <WorkoutNavLink to={`/workouts/${slug}`}>
+    <WorkoutNavLink to={`/workouts/${props.id}`}>
       <Header>
         <Title>{title}</Title>
         {/* <ActionsButton onClick={() => {}} /> */}

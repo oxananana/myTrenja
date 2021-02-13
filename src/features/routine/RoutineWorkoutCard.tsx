@@ -22,6 +22,7 @@ export const RoutineWorkoutCard: React.FC<Props> = (props) => {
     <RoutineWorkoutNavLink to={`/routine/${id}`}>
       <Header>
         <WorkoutDate>{formatToReadableDate(date)}</WorkoutDate>
+
         {/* <ActionsButton onClick={() => {}} /> */}
       </Header>
       <Title>{title}</Title>

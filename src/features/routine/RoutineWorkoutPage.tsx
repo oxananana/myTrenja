@@ -9,6 +9,7 @@ import { WorkoutExersizes } from "../workouts/workoutPage/WorkoutExersizes";
 import { formatToReadableDate } from "../../utils/formatToReadableDate";
 import { getRoutineWorkouts } from "../../selectors/selectors";
 import { Dropdown } from "../../components/Dropdown";
+import { Form } from "../../components/form/Form";
 
 type Props = {};
 
@@ -20,7 +21,11 @@ export const RoutineWorkoutPage: React.FC<Props> = () => {
   const readableDate = formatToReadableDate(date);
   useDocumentTitle(`Расписание — ${readableDate}`);
 
-  const [editMode, setEditMode] = useState<boolean>(false);
+  const initialValues = {
+    ...exersizes,
+  };
+
+  const [editMode, setEditMode] = useState<boolean>(true);
   const [dropdownIsOpen, setDropdownIsOpen] = useState<boolean>(false);
 
   const toggleEditMode = () => {
@@ -32,6 +37,8 @@ export const RoutineWorkoutPage: React.FC<Props> = () => {
   };
 
   const removeRoutineDay = () => {};
+
+  const handleSubmit = () => {};
 
   if (editMode) {
     return (
@@ -83,3 +90,5 @@ const Title = styled.div`
   font-weight: 500;
   margin-bottom: 20px;
 `;
+
+const FormContainer = styled(Form)``;

@@ -27,6 +27,10 @@ export const getRoutineWorkouts = (state: RootState) => {
   return routineWorkouts;
 };
 
+export const getWorkoutIds = (state: RootState) => {
+  return Object.keys(state.workouts.catalog);
+};
+
 export const getWorkoutsIsFetching = (state: RootState) => {
   return state.workouts.isFetching;
 };

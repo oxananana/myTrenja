@@ -11,10 +11,11 @@ type Props = {};
 
 export const WorkoutPage: React.FC<Props> = (props) => {
   const workouts = useSelector(getWorkouts);
-  const workoutSlugs = useSelector(getWorkoutSlugs);
+  // const workoutSlugs = useSelector(getWorkoutSlugs);
+  // const { workoutSlug } = useParams<{ workoutSlug: string }>();
+  // const workoutId = workoutSlugs[workoutSlug].id;
 
-  const { workoutSlug } = useParams<{ workoutSlug: string }>();
-  const workoutId = workoutSlugs[workoutSlug].id;
+  const { workoutId } = useParams<{ workoutId: string }>();
   const { title, exersizes } = workouts[workoutId];
 
   useDocumentTitle(title);

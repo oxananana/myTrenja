@@ -9,11 +9,6 @@ export const AddEditWorkoutPage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   useDocumentTitle("Редактирование тренировки");
 
-  // const handleAddWorkout = () => {
-  //   dispatch(
-  //     addWorkout()
-  //   );
-  // };
   return <ExersizeContainer>добавление тренировки</ExersizeContainer>;
 };
 

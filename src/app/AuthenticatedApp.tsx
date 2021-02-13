@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import {
-  // getRoutineIsFetching,
   getRoutineWorkouts,
   getWorkoutsIsFetching,
-  getWorkoutSlugs,
+  getWorkouts,
   getExersizesIsFetching,
 } from "../selectors/selectors";
 import { fetchWorkouts } from "../features/workouts/workoutsSlice";
@@ -74,11 +73,8 @@ export const AuthenticatedApp: React.FC<Props> = (props) => {
         <Route path="/workouts/add-workout" exact>
           <AddEditWorkoutPage />
         </Route>
-        <Route path="/workouts/:workoutSlug">
-          <CheckSlugContainer
-            stateSelector={getWorkoutSlugs}
-            slug="workoutSlug"
-          >
+        <Route path="/workouts/:workoutId">
+          <CheckSlugContainer stateSelector={getWorkouts} slug="workoutId">
             <WorkoutPage />
           </CheckSlugContainer>
         </Route>

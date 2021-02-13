@@ -8,13 +8,14 @@ import { PageNotFound } from "../features/PageNotFound";
 
 type Props = {
   stateSelector: (state: RootState) => WorkoutSlugs | Routine;
-  slug: "workoutSlug" | "routineWorkoutId";
+  slug: "workoutSlug" | "workoutId" | "routineWorkoutId";
   children: ReactElement;
 };
 
 type Params = {
   workoutSlug: string;
   routineWorkoutId: string;
+  workoutId: string;
 };
 
 export const CheckSlugContainer: React.FC<Props> = (props) => {
