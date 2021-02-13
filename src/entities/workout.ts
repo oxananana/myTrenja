@@ -18,7 +18,7 @@ export type Workout = {
   workoutId: string;
   title: string;
   slug?: string;
-  date?: string;
+  date: string;
   exersizes: WorkoutExersizes;
   isDefault: boolean;
 };

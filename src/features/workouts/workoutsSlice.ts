@@ -33,7 +33,6 @@ const workoutsSlice = createSlice({
     ) {
       const { workout, id } = action.payload;
       state.catalog[id] = workout;
-      debugger;
     },
     deleteWorkout(state, action: PayloadAction<{ id: string }>) {
       delete state.catalog[action.payload.id];

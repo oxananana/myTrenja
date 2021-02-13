@@ -8,6 +8,7 @@ export const workoutsAPI = {
 
     return db
       .ref("workouts")
+      .orderByChild("date")
       .once("value")
       .then((snapshot) => {
         return snapshot.val();
