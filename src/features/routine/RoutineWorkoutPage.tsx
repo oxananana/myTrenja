@@ -21,11 +21,7 @@ export const RoutineWorkoutPage: React.FC<Props> = () => {
   const readableDate = formatToReadableDate(date);
   useDocumentTitle(`Расписание — ${readableDate}`);
 
-  const initialValues = {
-    ...exersizes,
-  };
-
-  const [editMode, setEditMode] = useState<boolean>(true);
+  const [editMode, setEditMode] = useState<boolean>(false);
   const [dropdownIsOpen, setDropdownIsOpen] = useState<boolean>(false);
 
   const toggleEditMode = () => {
@@ -37,8 +33,6 @@ export const RoutineWorkoutPage: React.FC<Props> = () => {
   };
 
   const removeRoutineDay = () => {};
-
-  const handleSubmit = () => {};
 
   if (editMode) {
     return (
@@ -62,7 +56,7 @@ export const RoutineWorkoutPage: React.FC<Props> = () => {
           isOpen={dropdownIsOpen}
           actions={[
             { title: "Редактировать", onClick: toggleEditMode },
-            { title: "Удалить", onClick: removeRoutineDay },
+            // { title: "Удалить", onClick: removeRoutineDay },
           ]}
         >
           <ActionsButton onClick={toggleDropdown} />
@@ -90,5 +84,3 @@ const Title = styled.div`
   font-weight: 500;
   margin-bottom: 20px;
 `;
-
-const FormContainer = styled(Form)``;
