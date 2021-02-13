@@ -37,7 +37,7 @@ const App: React.FC = () => {
 const PageContainer = styled.div`
   margin: 0 auto;
   max-width: 420px;
-  padding: 24px 24px 56px;
+  padding: 0 24px 24px;
   position: relative;
 `;
 

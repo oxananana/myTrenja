@@ -68,27 +68,29 @@ export const LoginPage: React.FC<Props> = (props) => {
   };
 
   return (
-    <LoginForm
-      onSubmit={handleSubmit}
-      commonError={errors.commonError}
-      fieldErrors={errors.fieldErrors}
-    >
-      {isFetching && <Loader />}
-      <PageTitle>Войти в приложение</PageTitle>
-      <Field
-        type="text"
-        label="E-mail"
-        name="email"
-        validators={[required]}
-        autoFocus
-      />
-      <Field
-        type="password"
-        label="Пароль"
-        name="password"
-        validators={[required]}
-      />
-      <Button type="submit">Войти</Button>
+    <LoginForm>
+      <Form
+        onSubmit={handleSubmit}
+        commonError={errors.commonError}
+        fieldErrors={errors.fieldErrors}
+      >
+        {isFetching && <Loader />}
+        <PageTitle>Войти в приложение</PageTitle>
+        <Field
+          type="text"
+          label="E-mail"
+          name="email"
+          validators={[required]}
+          autoFocus
+        />
+        <Field
+          type="password"
+          label="Пароль"
+          name="password"
+          validators={[required]}
+        />
+        <Button type="submit">Войти</Button>
+      </Form>
     </LoginForm>
   );
 };
@@ -123,4 +125,6 @@ const isKnownErrorCode = (code: string): code is KnownErrorCodes => {
   return Object.keys(errorFromCode).includes(code);
 };
 
-const LoginForm = styled(Form)``;
+const LoginForm = styled.div`
+  padding-top: 32px;
+`;

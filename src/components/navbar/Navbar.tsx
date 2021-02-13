@@ -37,24 +37,27 @@ export const Navbar: React.FC = (props) => {
 
 const Nav = styled.ul`
   display: flex;
-  position: fixed;
+  justify-content: space-between;
+  margin: 0 0 24px;
+  border-bottom: 1px solid #e4e4e4;
+  /* position: fixed;
   z-index: 100;
   bottom: 0;
   left: 50%;
-  max-width: 420px;
-  transform: translateX(-50%);
-  background-color: ${({ theme }) => theme.bg.base};
-  box-shadow: ${({ theme }) => theme.shadow.base};
+  max-width: 420px; */
+  /* transform: translateX(-50%); */
+  /* background-color: ${({ theme }) => theme.bg.base}; */
+  /* box-shadow: ${({ theme }) => theme.shadow.base};
   border-radius: ${({ theme }) =>
-    theme.borderRadius.base + " " + theme.borderRadius.base + " 0 0"};
+    "0 0 " + theme.borderRadius.base + " " + theme.borderRadius.base}; */
 `;
 
 const NavItem = styled.li`
-  width: 25%;
+  /* width: 25%; */
 `;
 
 const NavItemLink = styled(NavLink)`
-  padding: 8px 16px;
+  padding: 12px 0;
   display: block;
   color: ${({ theme }) => theme.text.grey};
 
@@ -65,5 +68,6 @@ const NavItemLink = styled(NavLink)`
   svg {
     width: 20px;
     height: 20px;
+    margin: 0 auto;
   }
 `;
