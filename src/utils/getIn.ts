@@ -1,7 +1,7 @@
 export const getIn = (
   obj: Record<string, any>,
   path: string | string[]
-): string => {
+): string | boolean => {
   let keys = path;
 
   if (typeof path === "string") {

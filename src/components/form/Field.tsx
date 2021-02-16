@@ -6,7 +6,7 @@ import { FormContext } from "./Form";
 import { Validators } from "../../utils/validators";
 
 type Props = {
-  component?: string;
+  component?: string | React.ComponentType<any>;
   name: string;
   type?: string;
   label?: string;

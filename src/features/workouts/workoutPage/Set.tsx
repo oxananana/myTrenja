@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Set as SetType } from "../../../entities/workout";
 import { SetParam } from "./SetParam";
 import { Checkbox } from "../../../components/form/Checkbox";
+import { Field } from "../../../components/form/Field";
 import { Icon } from "../../../components/Icon";
 
 type Props = SetType & {
@@ -33,7 +34,16 @@ export const Set: React.FC<Props> = (props) => {
           unit="повт."
         />
       </Reps>
-      {/* {isComplete !== undefined && <IsCompleteCheckbox checked={isComplete} />} */}
+      {isComplete !== undefined &&
+        (isForm ? (
+          <Field
+            name={`${fieldName}.isComplete`}
+            type="checkbox"
+            component={Checkbox}
+          />
+        ) : (
+          isComplete && <Icon name="check" size={16} />
+        ))}
     </SetContainer>
   );
 };
@@ -62,5 +72,3 @@ const IconContainer = styled.div`
     height: 10px;
   }
 `;
-
-const IsCompleteCheckbox = styled(Checkbox)``;

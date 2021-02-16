@@ -1,8 +1,21 @@
 import React from "react";
+import styled from "styled-components";
 
-export const Icon: React.FC<{ name: keyof Icons }> = ({ name }) => {
-  return icons[name];
+type IconProps = {
+  name: keyof Icons;
+  size?: number;
 };
+
+export const Icon: React.FC<IconProps> = (props) => {
+  return <IconContainer {...props}>{icons[props.name]}</IconContainer>;
+};
+
+const IconContainer = styled.span<{ size?: number }>`
+  svg {
+    width: ${({ size }) => size && size + "px"};
+    height: ${({ size }) => size && size + "px"};
+  }
+`;
 
 export const iconForBg = (name: keyof StringIcons): string => {
   return `url('data:image/svg+xml;utf8,${stringIcons[name]}')`;

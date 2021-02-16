@@ -35,7 +35,7 @@ export const WorkoutExersize: React.FC<Props> = (props) => {
               key={id}
               weight={set.weight}
               reps={set.reps}
-              // isComplete={set.isComplete}
+              isComplete={set.isComplete}
             />
           );
         })}

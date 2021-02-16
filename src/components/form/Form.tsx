@@ -31,7 +31,7 @@ export type FormContextType<Values> = {
   errors: FormErrors;
   wasFirstSubmit: boolean;
   setValues: (values: React.SetStateAction<Values>) => void;
-  setFieldValue: (field: string, value: string) => void;
+  setFieldValue: (field: string, value: string | boolean) => void;
   setFieldValidators: (field: string, validators: Validators) => void;
   setErrors: (errors: FormErrors) => void;
 };
@@ -57,7 +57,10 @@ type FormState<Values> = {
 
 type FormAction<Values> =
   | { type: "SET_VALUES"; payload: Values }
-  | { type: "SET_FIELD_VALUE"; payload: { field: string; value: string } }
+  | {
+      type: "SET_FIELD_VALUE";
+      payload: { field: string; value: string | boolean };
+    }
   | {
       type: "SET_FIELD_VALIDATORS";
       payload: { field: string; validators: Validators };
@@ -122,9 +125,11 @@ export function Form<Values extends FormValues = FormValues>(
     dispatch({ type: "SET_ERRORS", payload: fieldErrors });
   }, [fieldErrors]);
 
-  const setFieldValue = useSetStateCallback((field: string, value: string) => {
-    dispatch({ type: "SET_FIELD_VALUE", payload: { field, value } });
-  });
+  const setFieldValue = useSetStateCallback(
+    (field: string, value: string | boolean) => {
+      dispatch({ type: "SET_FIELD_VALUE", payload: { field, value } });
+    }
+  );
 
   const setValues = useSetStateCallback(
     (values: React.SetStateAction<Values>) => {

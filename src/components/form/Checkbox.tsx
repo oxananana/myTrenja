@@ -1,24 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Icon } from "../Icon";
 
 type Props = {
-  checked: boolean;
+  name: string;
+  value: boolean | string;
+  onChange: () => void;
 };
 
 export const Checkbox: React.FC<Props> = (props) => {
-  const [isChecked, setIsChecked] = useState<boolean>(props.checked);
+  let checked, value;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(e.target.checked);
-  };
+  if (typeof props.value === "boolean") {
+    checked = props.value;
+    value = String(props.value);
+  } else {
+    checked = Boolean(props.value);
+    value = props.value;
+  }
 
   return (
     <CheckboxLabel>
-      <CheckboxInput
+      <input
         type="checkbox"
-        onChange={handleChange}
-        checked={isChecked}
+        value={value}
+        checked={checked}
+        onChange={props.onChange}
       />
 
       <CheckboxControl>
@@ -27,8 +34,6 @@ export const Checkbox: React.FC<Props> = (props) => {
     </CheckboxLabel>
   );
 };
-
-const CheckboxLabel = styled.label``;
 
 const CheckboxControl = styled.div`
   width: 28px;
@@ -52,15 +57,17 @@ const CheckboxControl = styled.div`
   }
 `;
 
-const CheckboxInput = styled.input`
-  position: absolute;
-  opacity: 0;
+const CheckboxLabel = styled.label`
+  input {
+    position: absolute;
+    opacity: 0;
 
-  &:focus {
-    outline: 0;
-  }
+    &:focus {
+      outline: 0;
+    }
 
-  &:checked + ${CheckboxControl} svg {
-    opacity: 1;
+    &:checked + ${CheckboxControl} svg {
+      opacity: 1;
+    }
   }
 `;

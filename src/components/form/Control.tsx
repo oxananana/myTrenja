@@ -4,12 +4,12 @@ import { FormContext } from "./Form";
 import { getIn } from "../../utils";
 
 type Props = {
-  component: string;
+  component: string | React.ComponentType | React.ComponentType<any>;
   type: string;
   name: string;
   validators?: Validators;
   autoFocus?: boolean;
-  className: string | undefined;
+  className?: string | undefined;
   min?: string;
   pattern?: string;
 };
@@ -17,7 +17,7 @@ type Props = {
 export const Control: React.FC<Props> = (props) => {
   const { component, validators, name, ...rest } = props;
   const formContext = useContext(FormContext);
-  const value = getIn(formContext.values, name) || "";
+  const value = getIn(formContext.values, name);
 
   useEffect(() => {
     if (validators) {
@@ -26,7 +26,9 @@ export const Control: React.FC<Props> = (props) => {
   }, []); // eslint-disable-line
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+    const target = e.target;
+    const newValue = target.type === "checkbox" ? target.checked : target.value;
+
     formContext.setFieldValue(name, newValue);
 
     if (validators && formContext.wasFirstSubmit) {

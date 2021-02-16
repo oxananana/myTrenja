@@ -30,8 +30,9 @@ export const WorkoutExersizes: React.FC<Props> = (props) => {
     <ExersizesList>
       {orderedExersizes.map(
         (exersize: WorkoutExersizeType & { id: string }) => {
-          // const isComplete = exersize.isComplete ? exersize.isComplete : undefined;
-          const isComplete = false;
+          const isComplete = exersize.isComplete
+            ? exersize.isComplete
+            : undefined;
 
           return (
             <WorkoutExersize

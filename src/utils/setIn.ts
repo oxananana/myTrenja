@@ -1,7 +1,7 @@
 export const setIn = (
   obj: Record<string, any>,
   path: string | string[],
-  value: string
+  value: string | boolean
 ): any => {
   let keys = path;
 
